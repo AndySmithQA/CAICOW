@@ -1,0 +1,1 @@
+Generate a comprehensive test suite for ServiceFlow and review the whole application. Use the test-generation skill, the feature-development skill, and the reviewer agent. Fold existing security and validation tests into the new suite. If an old test is awkward, regenerate the file.

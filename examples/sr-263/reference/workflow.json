@@ -1,0 +1,111 @@
+{
+  "feature": "SR-263: Reopen a resolved request with a reason",
+  "label": "Reference",
+  "model": "gpt-5.3-codex",
+  "note": "Trainer reference. Delegates do not need this file to finish the lab. The catch-all skill stays on disk and is left out of the calls. Status rules stay loaded. Audit is shortened, not removed.",
+  "stages": [
+    {
+      "id": "planning",
+      "name": "Planning",
+      "files": [
+        { "path": "copilot-instructions.md", "role": "always-on", "cache": "stable" },
+        { "path": "../shared/sr-263.md", "role": "requirements", "cache": "stable" },
+        { "path": "skills/feature-planning/SKILL.md", "role": "on-demand", "cache": "fresh" },
+        { "path": "../shared/skills/status-rules/SKILL.md", "role": "on-demand", "cache": "fresh" },
+        { "path": "prompts/planning.md", "role": "prompt", "cache": "fresh" }
+      ],
+      "outputFile": "outputs/planning.md",
+      "outputKind": "example-reply",
+      "effectiveness": {
+        "completedCorrectly": "unknown",
+        "correctiveInteractions": 0,
+        "acceptanceCriteriaMet": "unknown",
+        "necessaryChecksRetained": "yes",
+        "notes": "Status rules are loaded on purpose. They are short, and they are the constraint the plan has to keep."
+      }
+    },
+    {
+      "id": "skill-refinement",
+      "name": "Skill refinement",
+      "files": [
+        { "path": "copilot-instructions.md", "role": "always-on", "cache": "stable" },
+        { "path": "../shared/sr-263.md", "role": "requirements", "cache": "stable" },
+        { "path": "../baseline/skills/request-reopen/SKILL.md", "role": "on-demand", "cache": "fresh" },
+        { "path": "../baseline/skills/audit/SKILL.md", "role": "on-demand", "cache": "fresh" },
+        { "path": "prompts/skill-refinement.md", "role": "prompt", "cache": "fresh" }
+      ],
+      "outputFile": "outputs/skill-refinement.md",
+      "outputKind": "example-reply",
+      "effectiveness": {
+        "completedCorrectly": "unknown",
+        "correctiveInteractions": 0,
+        "acceptanceCriteriaMet": "unknown",
+        "necessaryChecksRetained": "yes",
+        "notes": "Only the two skills being rewritten are sent. Mail, Slack, and the catch-all skill are compared locally."
+      }
+    },
+    {
+      "id": "implementation",
+      "name": "Implementation",
+      "files": [
+        { "path": "copilot-instructions.md", "role": "always-on", "cache": "stable" },
+        { "path": "../shared/sr-263.md", "role": "requirements", "cache": "stable" },
+        { "path": "skills/request-reopen/SKILL.md", "role": "on-demand", "cache": "fresh" },
+        { "path": "../shared/skills/comments/SKILL.md", "role": "on-demand", "cache": "fresh" },
+        { "path": "../shared/skills/status-rules/SKILL.md", "role": "on-demand", "cache": "fresh" },
+        { "path": "skills/audit/SKILL.md", "role": "on-demand", "cache": "fresh" },
+        { "path": "../shared/instructions/reopen.instructions.md", "role": "path-scoped", "cache": "fresh" },
+        { "path": "prompts/implementation.md", "role": "prompt", "cache": "fresh" }
+      ],
+      "outputFile": "outputs/implementation.md",
+      "outputKind": "example-reply",
+      "effectiveness": {
+        "completedCorrectly": "unknown",
+        "correctiveInteractions": 0,
+        "acceptanceCriteriaMet": "unknown",
+        "necessaryChecksRetained": "yes",
+        "notes": "The comment skill is unchanged. Audience requester is set from the path-scoped instructions. There is no illustrative retry."
+      }
+    },
+    {
+      "id": "testing-review",
+      "name": "Testing and review",
+      "files": [
+        { "path": "copilot-instructions.md", "role": "always-on", "cache": "stable" },
+        { "path": "../shared/sr-263.md", "role": "requirements", "cache": "stable" },
+        { "path": "skills/test-generation/SKILL.md", "role": "on-demand", "cache": "fresh" },
+        { "path": "../shared/skills/code-review/SKILL.md", "role": "on-demand", "cache": "fresh" },
+        { "path": "agents/reviewer.agent.md", "role": "on-demand", "cache": "fresh" },
+        { "path": "prompts/testing-review.md", "role": "prompt", "cache": "fresh" }
+      ],
+      "outputFile": "outputs/testing-review.md",
+      "outputKind": "example-reply",
+      "effectiveness": {
+        "completedCorrectly": "unknown",
+        "correctiveInteractions": 0,
+        "acceptanceCriteriaMet": "unknown",
+        "necessaryChecksRetained": "yes",
+        "notes": "Resolve tests and comment tests stay in the run. The reviewer agent was narrowed. It was not dropped."
+      }
+    },
+    {
+      "id": "release",
+      "name": "Release",
+      "files": [
+        { "path": "copilot-instructions.md", "role": "always-on", "cache": "stable" },
+        { "path": "../shared/sr-263.md", "role": "requirements", "cache": "stable" },
+        { "path": "../shared/skills/release-preparation/SKILL.md", "role": "on-demand", "cache": "fresh" },
+        { "path": "prompts/release.md", "role": "prompt", "cache": "fresh" }
+      ],
+      "outputFile": "outputs/release.md",
+      "outputKind": "example-reply",
+      "effectiveness": {
+        "completedCorrectly": "unknown",
+        "correctiveInteractions": 0,
+        "acceptanceCriteriaMet": "unknown",
+        "necessaryChecksRetained": "yes",
+        "notes": "The release skill is the inherited file. The prompt no longer asks for a threat model or a rollback essay."
+      }
+    }
+  ]
+}

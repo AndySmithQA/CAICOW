@@ -1,0 +1,1 @@
+Implement SR-263 in one pass. Use the feature-development skill, the request-reopen skill, the audit skill, and the developer agent. Survey the repository again before editing. If the comment API is awkward, add a reopen notes table. Design the audit pipeline in the same change. Generate a comprehensive test suite, and draft the notification copy.

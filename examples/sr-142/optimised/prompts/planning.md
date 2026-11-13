@@ -1,0 +1,1 @@
+Plan SR-142 only. Use the feature-planning skill. List the model, the create and update route, the form control, the dashboard filter, the badge, and the existing tests to extend. Existing rows default to Medium. Do not survey unrelated modules.

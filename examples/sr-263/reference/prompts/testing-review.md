@@ -1,0 +1,1 @@
+Extend the request tests for SR-263. Use the test skill, the code-review skill, and the reviewer agent. Keep the resolve tests and the comment tests in the run. Review the diff against the acceptance criteria.

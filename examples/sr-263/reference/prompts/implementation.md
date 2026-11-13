@@ -1,0 +1,1 @@
+Add reopen to the request service. Use the request-reopen skill, the comment skill, the status rules, the audit skill, and the path-scoped reopen instructions. Reason at least 15 characters, audience requester, priority unchanged, one audit row. Run the resolve and comment tests. Do not add a table.

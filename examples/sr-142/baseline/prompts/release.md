@@ -1,0 +1,1 @@
+Prepare the release for SR-142. Use the feature-development skill and the release skill. Restate the architecture, the rejected options, and the full test plan in the release notes. Re-review every module before you call the change ready.

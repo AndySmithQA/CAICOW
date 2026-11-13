@@ -1,0 +1,1 @@
+Extend the request tests for priority and the dashboard filter. Use the test-generation skill, then the code-review skill with the reviewer agent. Keep the existing auth and validation tests. Review the diff against the acceptance criteria.

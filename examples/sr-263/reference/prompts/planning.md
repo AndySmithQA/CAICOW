@@ -1,0 +1,1 @@
+Plan SR-263 only. Use the feature-planning skill and the status rules. List the route, who may call it, the reason rule, the comment audience, the audit fields, and the existing tests to extend. Do not survey unrelated modules, and do not draft the tests or the release notes here.

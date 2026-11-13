@@ -1,0 +1,1 @@
+Rewrite the request-reopen skill and the audit skill for SR-263. Compare them with the status rules and the comment skill. Do not restate skills that this feature will not load. Do not expand the status rules into a survey.

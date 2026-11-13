@@ -1,0 +1,1 @@
+Review every skill and both agents against SR-142. Propose a new operating model for the whole repository. Rewrite planning, API, UI, tests, review, and release into one combined skill so every future call has the full picture. Restate each current skill in the answer before you replace it.

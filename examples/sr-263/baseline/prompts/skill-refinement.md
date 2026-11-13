@@ -1,0 +1,1 @@
+Review every skill and both agents against SR-263. Propose one combined skill so every future call has the full picture, including mail and Slack. Restate each current skill in the answer before you replace it. Treat the short status skill as a draft to be expanded, and treat the audit essay as the model for the other skills.

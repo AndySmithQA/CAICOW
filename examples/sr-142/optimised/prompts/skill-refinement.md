@@ -1,0 +1,1 @@
+Rewrite the API skill so it matches SR-142. The comparison of skill files was done locally. Use this inherited skill and the acceptance criteria. Keep the description narrow. Name the existing validation pattern, the three priority values, and the tests to run. Leave the other skills out of this call.
