@@ -5,7 +5,7 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import { test } from "node:test";
 import { estimateText } from "../tools/lib/estimate.mjs";
-import { modelById, priceTokens, rateBundle } from "../tools/lib/rates.mjs";
+import { modelById, priceTokens } from "../tools/lib/rates.mjs";
 import { analyseFile, compareFiles, qualityOf } from "../tools/lib/workflow.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
@@ -199,13 +199,6 @@ test("the focused API skill sits between the one-line trap and the bloated skill
   ).tokens;
   assert.ok(trap < focused);
   assert.ok(focused < bloated);
-});
-
-test("scorecard publishes the same rates as the command line", () => {
-  const html = readFileSync(path.join(root, "scorecard", "index.html"), "utf8");
-  const match = html.match(/<script type="application\/json" id="rates">([\s\S]*?)<\/script>/);
-  assert.ok(match, "rates JSON missing");
-  assert.deepEqual(JSON.parse(match[1]), rateBundle());
 });
 
 test("a missing file fails before a report is printed", () => {

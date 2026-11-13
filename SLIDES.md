@@ -2,14 +2,14 @@
 
 Twenty-five slides for the two-hour session. Slide 0 sets the scene the delegates walk into. Slides 1–21 support the 80-minute trainer demonstration on SR-142. Slides 22–24 open the 40-minute delegate lab on SR-263.
 
-The trainer works in the repository while a slide is up. A slide states the decision. It does not replace the terminal, the scorecard, or the skill file.
+The trainer works in the editor and the terminal while a slide is up. A slide states the decision. It does not replace the skill file or the compare.
 
 Build rules for every slide:
 
 - One idea. The title is that idea.
 - No provider price list, no rate table, and no model catalogue.
 - Code on a slide is a file name or a single sentence from a prompt, large enough to read in a virtual classroom.
-- The scorecard and the terminal stay on the demo machine. Do not screenshot a full report onto a slide.
+- The terminal stays on the demo machine. Do not screenshot a full report onto a slide. Read one stage from it.
 - Speaker notes carry the numbers. Those numbers are file estimates and will move if a skill is edited. Re-run `node tools/workflow-usage.mjs compare` before the session and correct the notes.
 
 ## Slide 0 — The setup is already there. A new request just arrived.
@@ -56,14 +56,14 @@ Build rules for every slide:
 - **Speaker:** We are not starting by picking a cheaper model. We are looking at what this request sends.
 - **Leave off:** Token totals. The optimised workflow.
 
-## Slide 4 — The same loop at every stage
+## Slide 4 — Two moves at every stage
 
-- **On screen:** 0:08, before the baseline report, and again whenever a stage opens.
-- **Purpose:** Teach the method once.
-- **On-slide copy:** Four steps. 1. Request: what this call may do. 2. Price: the skills, agents, and prompt this call loads now. 3. Rewrite: retain, modify, or leave unused. 4. Follow through: reprice, check the criteria, then name what the next stage may load.
-- **Visual:** Four boxes in a circle, with the stage name in the middle left blank so the trainer can say it.
-- **Speaker:** We will do this five times. We do not rewrite the next stage's skill before this stage has a price.
-- **Leave off:** The five questions. Those stay in the speaker notes and the walkthrough.
+- **On screen:** 0:08, and again whenever a stage opens.
+- **Purpose:** Teach the demo once.
+- **On-slide copy:** 1. Amend the skill. 2. See the difference for this stage. Then the next stage.
+- **Visual:** Two boxes. The stage name sits above them, blank, so the trainer can say it.
+- **Speaker:** We will do this five times on SR-142. Open the inherited skill, show the amended skill, then read only that stage of the compare.
+- **Leave off:** A four-step method. A form. A total for the whole feature. That total waits until every stage has been amended.
 
 ## Slide 5 — Five stages, one request
 
@@ -80,7 +80,7 @@ Build rules for every slide:
 - **Purpose:** Make the baseline the thing being beaten.
 - **On-slide copy:** Heading: Inherited cost, before any rewrite. Three words under it: stage, files loaded, tokens. A blank fourth line labelled "after the rewrite" with nothing in it.
 - **Visual:** A five-row table with the baseline column filled in the speaker notes, not on the slide. The rewrite column is an empty track.
-- **Speaker:** Import the report and walk only the baseline column. Name the catch-all `feature-development` skill on every row. The testing row includes an illustrative retry. Say that it is a teaching figure, not a `/usage` reading. Current file estimate, re-run before delivery: about 11,735 baseline tokens and about 3.49 credits on GPT-5.3-Codex. Do not read the challenge total.
+- **Speaker:** Run the compare and read the inherited side of one stage only when you are about to amend that stage. Name the catch-all `feature-development` skill when it appears. Do not read the amended total yet. The testing retry is illustrative, not a `/usage` reading.
 - **Leave off:** The 64% figure. The optimised column. A rate card.
 
 ## Slide 7 — What the price is made of
@@ -89,7 +89,7 @@ Build rules for every slide:
 - **Purpose:** Give the room four buckets so later stages are readable.
 - **On-slide copy:** Fresh input. Cached input, for a stable file that already appeared. Output. Retries, as their own calls. A stable instruction is paid for on the first stage, then reused.
 - **Visual:** Four short bars labelled with those names. No axis scale. Output and retries marked as the expensive buckets. Cached input marked as the cheap bucket.
-- **Speaker:** Open Planning, then Implementation, and show the same instructions file moving from fresh input to cached input. A file estimate misses tool calls until they are recorded.
+- **Speaker:** When the compare shows the same instructions file as fresh input on Planning and cached input later, say that once. A file estimate misses tool calls until a live `/usage` is read.
 - **Leave off:** The per-token rate table. Model names other than the one the room is using.
 
 ## Slide 8 — Planning: what this call may do
@@ -116,7 +116,7 @@ Build rules for every slide:
 - **On screen:** 0:28–0:30.
 - **Purpose:** Close the stage before leaving it.
 - **On-slide copy:** Reprice this stage only. The plan still names Low, Medium, High, and the Medium default. The instructions file is stable, so the next stage can treat it as cached.
-- **Visual:** The loop with "Follow through" highlighted, and the four values listed as the handoff to Implementation.
+- **Visual:** The two moves, with "See the difference" highlighted, and Low, Medium, High, and the Medium default listed as what the amended plan still names.
 - **Speaker:** Challenge planning file context is about 654. Say that number only after the rewrite is visible. The criteria that must survive are the handoff, not a new piece of work.
 - **Leave off:** Implementation's files.
 
@@ -172,8 +172,8 @@ Build rules for every slide:
 - **On screen:** 0:52–0:56.
 - **Purpose:** Show follow-through when the request changes mid-stage.
 - **On-slide copy:** The priority badge uses the existing design-system tones. Low is neutral, Medium is attention, High is urgent. Add that sentence, then estimate again, then call Copilot.
-- **Visual:** The loop with Rewrite and Follow through both highlighted. The three tones as text, not as a made-up palette.
-- **Speaker:** Read the complication from `sr-142.md`. Add it to the challenge prompt on screen. If Copilot is available, this is the live call, and `/usage` goes into the observed row. If the reply skips service-layer validation, record a retry. Do not hide that cost inside the rewritten skill.
+- **Visual:** The two moves, with both highlighted. The three tones as text, not as a made-up palette.
+- **Speaker:** Read the complication from `sr-142.md`. Add it to the amended prompt on screen, then run the compare again. If Copilot is available, send the call and read `/usage` in the terminal. If the reply skips service-layer validation, say that the follow-up is part of the cost.
 - **Leave off:** A new colour scale. A production deploy.
 
 ## Slide 17 — Testing: the inherited call pays twice
@@ -190,8 +190,8 @@ Build rules for every slide:
 - **On screen:** 1:02–1:06.
 - **Purpose:** Show the quality bar rejecting a token cut.
 - **On-slide copy:** If the existing auth and validation tests were removed to shrink the prompt, the cut is not a saving. The percentages can stay on screen. They are not the result.
-- **Visual:** The scorecard warning, redrawn as large text: "Not a saving: necessary tests or security checks were removed."
-- **Speaker:** Set **Necessary checks retained** to No on the scorecard, read the warning, then set it back to Not recorded before the lab. `--strict` does the same check on the command line.
+- **Visual:** Large text: "Not a saving: the existing tests are no longer in the skill."
+- **Speaker:** Open the amended test skill and show the auth and validation tests still named. If they were deleted, the smaller number on the compare is not the result. Point at the missing lines in the file.
 - **Interaction:** None. Do not invite the room to clear the warning.
 - **Leave off:** A green percentage beside the warning.
 
@@ -210,16 +210,16 @@ Build rules for every slide:
 - **Purpose:** Explain the gap between the two headlines.
 - **On-slide copy:** Credits move further than tokens when output and retries shrink, because those buckets cost more than cached input. Changing the model changes the credits and leaves the token count where it is.
 - **Visual:** Two headlines with blank numbers, labelled Tokens and Credits. The speaker writes the SR-142 figures in the notes, not as a baked-in image: about 11,735 against 4,197 tokens (64.2% fewer), about 3.49 credits against 0.83 (76.1% fewer).
-- **Speaker:** Say those figures only after every stage has been rewritten on screen. If time remains, switch the scorecard to Claude Sonnet 5, show the credits move, and switch back to GPT-5.3-Codex.
+- **Speaker:** Say those figures only after every stage has been amended on screen. Read them from the **All stages** block of the compare.
 - **Leave off:** A ranking of models. A recommendation to switch model as the optimisation.
 
 ## Slide 21 — The loop is the thing to reuse
 
 - **On screen:** 1:16–1:20.
 - **Purpose:** Hand the method to the room before the lab.
-- **On-slide copy:** Request. Price the current skills. Rewrite. Follow through. Then the next stage. The demo feature is finished. The lab is a different request.
-- **Visual:** The four-step loop, with SR-142 marked done and SR-263 named as the lab. No hint of the SR-263 answer.
-- **Speaker:** Baseline workflows stay read-only. Edits go in `my-workflow.json`. The reference folder for the lab stays closed until the CSV is submitted.
+- **On-slide copy:** Amend the skill. See the difference. Then the next stage. SR-142 is finished. The lab is a different request.
+- **Visual:** The two moves, with SR-142 marked done and SR-263 named as the lab. No hint of the SR-263 answer.
+- **Speaker:** Baseline workflows stay read-only. Edits go in `my-workflow.json`. The reference folder stays closed until the delegate has made a recommendation.
 - **Leave off:** SR-263's skill decisions. The trap files.
 
 ## Slide 22 — Your request is SR-263
@@ -227,7 +227,7 @@ Build rules for every slide:
 - **On screen:** 1:20–1:24. Leave the criteria up while delegates open the file.
 - **Purpose:** Start the lab on a feature they have not watched you solve.
 - **On-slide copy:** Reopen a resolved request with a reason. Only Resolved can be reopened. The reporter or the assignee may do it. The reason has at least 15 characters and is stored through the existing comment API. Status becomes Open. Priority is unchanged. One audit row: who, when, and the comment id. Existing resolve tests and comment tests stay.
-- **Visual:** The criteria as a list. A footer: same five stages, same loop.
+- **Visual:** The criteria as a list. A footer: same five stages. Amend the skill, then see the difference.
 - **Speaker:** Point at `examples/sr-263/LAB.md`. Tell them the complication is in the feature file and they should read it before Implementation. Do not explain how to satisfy it.
 - **Leave off:** Which skill to delete. The word "catalog." The traps folder. Any reference-workflow number.
 
@@ -235,9 +235,9 @@ Build rules for every slide:
 
 - **On screen:** 1:24, and again at 1:56 when the room is closing the lab.
 - **Purpose:** Make the 40-minute output visible.
-- **On-slide copy:** A workflow priced against the SR-263 baseline. Notes that say what you left unused, what you shortened, and what you kept on purpose. The testing row filled in, including whether the existing tests stayed. A CSV. One recommendation: ship, revise, or reject.
+- **On-slide copy:** Your amended skills. The compare for the stage you changed. One recommendation: ship, revise, or reject. The existing tests are still named, or they are not.
 - **Visual:** Five checkboxes matching that list.
-- **Speaker:** Ship only if the cost fell and the necessary checks stayed. Revise if a check was dropped or a retry is still unpriced. Reject if the rewrite costs more, or the criteria are no longer in the call. Give the timings: 80–88 read and price, 88–100 planning and skill refinement, 100–112 implementation, 112–116 testing and release, 116–120 submit.
+- **Speaker:** Ship only if the cost fell and the necessary checks are still in the skills. Revise if a check was dropped. Reject if the rewrite costs more, or the criteria are no longer in the call. Give the timings: 80–88 read the request, 88–112 amend each stage and read that stage, 112–120 last compare and the recommendation.
 - **Leave off:** A sample recommendation. The reference totals (about 14,571 against 5,373 tokens, about 3.31 against 1.00 credits). Those belong in the trainer key, not on a lab slide.
 
 ## Slide 24 — One thing you would keep, and one thing you would cut

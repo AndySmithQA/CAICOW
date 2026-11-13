@@ -284,7 +284,7 @@ function toMarkdown(report) {
     qualityLabelFromEffectiveness(stage.effectiveness),
   ]);
   return [
-    "# Token efficiency scorecard",
+    "# Workflow comparison",
     "",
     `Feature: ${report.feature}`,
     `Workflow: ${report.label}`,
@@ -313,7 +313,7 @@ function comparisonMarkdown(report) {
       stage.quality.label,
     ]);
   return [
-    "# Token efficiency scorecard",
+    "# Workflow comparison",
     "",
     `Feature: ${report.feature}`,
     `Model: ${report.model.name}`,
@@ -338,8 +338,7 @@ function help() {
   node tools/workflow-usage.mjs models
 
 --json with no file writes JSON to stdout.
---strict exits 1 when a stage removes necessary checks, misses acceptance criteria, or was not completed correctly.
-Open scorecard/index.html to edit the delegate scorecard and import a JSON report.`;
+--strict exits 1 when a stage removes necessary checks, misses acceptance criteria, or was not completed correctly.`;
 }
 
 function printModels() {

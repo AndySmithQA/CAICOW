@@ -1,6 +1,6 @@
 # Trainer key: SR-263
 
-Open this after the CSV is in. A delegate workflow can differ from `workflow.json` in this folder and still be a ship, if the evidence supports it.
+Open this after the delegate has made a recommendation. A delegate workflow can differ from `workflow.json` in this folder and still be a ship, if the compare and the skills support it.
 
 Figures below are the reference compared with the baseline on GPT-5.3-Codex, as file estimates. Re-run the command if a file has been edited.
 

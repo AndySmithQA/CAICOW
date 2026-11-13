@@ -1,8 +1,8 @@
 # Token usage toolkit
 
-Measurement toolkit for a two-hour GitHub Copilot course. The trainer spends 80 minutes taking one feature request through every stage. Delegates then spend 40 minutes repeating that loop: price the inherited skills, rewrite them, and follow the cost through to release. The run of show is in `WALKTHROUGH.md`.
+Measurement toolkit for a two-hour GitHub Copilot course. The trainer spends 80 minutes on SR-142. At each stage they amend the skill, then read the difference for that stage. Delegates spend 40 minutes doing the same on SR-263. The run of show is in `WALKTHROUGH.md`.
 
-It extends the [Token Delegate Lab](https://github.com/AndySmithQA/Token-delegate-lab). The 30-minute lab's estimator is here as `tools/estimate-tokens.mjs`: about 4 characters per token, for comparing files before a Copilot call. This folder adds the workflow report and the token efficiency scorecard used across the whole feature.
+It extends the [Token Delegate Lab](https://github.com/AndySmithQA/Token-delegate-lab). The 30-minute lab's estimator is here as `tools/estimate-tokens.mjs`: about 4 characters per token, for comparing two files. This folder adds the workflow compare, which prices a feature from planning through to release.
 
 The application the class changes, such as a service-request codebase, stays in its own repository. Point the workflow files at that repository's instructions, skills, agents, and prompts.
 
@@ -32,31 +32,28 @@ Node.js 20 or newer. No install.
 node tools/estimate-tokens.mjs examples/sr-142/baseline/skills/api-development/SKILL.md examples/sr-142/optimised/skills/api-development/SKILL.md
 
 node tools/workflow-usage.mjs compare examples/sr-142/baseline/workflow.json examples/sr-142/optimised/workflow.json
-
-node tools/workflow-usage.mjs compare examples/sr-142/baseline/workflow.json examples/sr-142/optimised/workflow.json --json report.json --markdown scorecard.md
 ```
 
 `--model` reprices both sides with the same model. `node tools/workflow-usage.mjs models` lists the rates bundled for the lab. `--strict` exits with an error when a stage says necessary checks were removed, acceptance criteria were missed, or the task was not completed.
 
-Open `scorecard/index.html` in a browser. It starts from the illustrative course figures, 130,000 baseline tokens and 84,000 optimised tokens. Import `report.json` to replace those figures with the file estimate. **Copy results as CSV** writes the sheet the delegate submits.
+Read one stage of the compare after you amend that stage. The whole-feature total is for the end of the demo.
 
 ## Where it sits in the two hours
 
 GitHub Copilot is the tool the course teaches. The first 80 minutes are the trainer, on the shared screen, taking SR-142 through every stage. The last 40 minutes are the delegate lab.
 
-At each stage the trainer uses the same loop: the stage request arrives, the inherited skills are priced, those skills are rewritten, then the stage is followed through (reprice, quality, and what the next stage is now allowed to load).
+At each stage the trainer amends the skill, then reads the difference for that stage.
 
 | Minutes | Who | What |
 | --- | --- | --- |
-| 0–8 | Trainer | The request lands. Open the scorecard. Name the feature and the model. |
-| 8–18 | Trainer | Price the inherited workflow before any rewrite. |
-| 18–30 | Trainer | Planning: price, rewrite, follow through. |
-| 30–42 | Trainer | Skill refinement: price, rewrite, follow through. |
-| 42–56 | Trainer | Implementation: price, rewrite, follow through. |
-| 56–66 | Trainer | Testing and review: price, rewrite, follow through. |
-| 66–76 | Trainer | Release: price, rewrite, follow through. |
-| 76–80 | Trainer | Full compare, then hand the loop to the room. |
-| 80–120 | Delegates | Same loop on a harder request, SR-263. Submit the scorecard. |
+| 0–8 | Trainer | The request lands. Show the catch-all skill. |
+| 8–30 | Trainer | Planning: amend the skill, read the difference. |
+| 30–42 | Trainer | Skill refinement, including the too-short file. |
+| 42–56 | Trainer | Implementation, then the badge sentence. |
+| 56–66 | Trainer | Testing and review. A dropped test is not a saving. |
+| 66–76 | Trainer | Release. The release skill stays. The prompt changes. |
+| 76–80 | Trainer | All stages, then hand over to SR-263. |
+| 80–120 | Delegates | Same two moves on SR-263. Ship, revise, or reject. |
 
 Before each Copilot call: what is being asked, which skill or agent is loaded, whether that skill fits, what can be left out, and whether the estimated saving still holds once retries and quality are counted.
 
