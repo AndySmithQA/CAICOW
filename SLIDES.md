@@ -1,6 +1,6 @@
 # Slide deck: Cut the cost of a Copilot workflow
 
-Twenty-five slides for the two-hour session. Slide 0 sets the scene the delegates walk into. Slides 1–21 support the 80-minute trainer demonstration on SR-142. Slides 22–24 open the 40-minute delegate lab on SR-263.
+Twenty-five slides for the two-hour session. Slides 0–6 teach the language and the engineer's job. Slide 7 turns that into the SR-142 spec. Slides 8–21 are the stage demonstrations. Slides 22–24 open the 40-minute delegate lab on SR-263.
 
 The trainer works in the editor and the terminal while a slide is up. A slide states the decision. It does not replace the skill file or the compare.
 
@@ -12,89 +12,95 @@ Build rules for every slide:
 - The terminal stays on the demo machine. Do not screenshot a full report onto a slide. Read one stage from it.
 - Speaker notes carry the numbers. Those numbers are file estimates and will move if a skill is edited. Re-run `node tools/workflow-usage.mjs compare` before the session and correct the notes.
 
-## Slide 0 — The setup is already there. A new request just arrived.
+## Slide 0 — The tools are already there. A new request has arrived.
 
-- **On screen:** 0:00–0:05. This is the opening scene, before the title and before SR-142's criteria.
-- **Purpose:** Put the delegates in the situation the rest of the session answers.
-- **On-slide copy:** Heading: The app is built. The help is already in place. Then a new request arrives.
-  Three lines under the heading:
+- **On screen:** 0:00–0:05.
+- **Purpose:** Set the scene. Reuse is the goal. The engineer does not run the process yet.
+- **On-slide copy:** Heading: The app is built. The skills are already written. A new request arrives.
+  Three lines:
   1. A working application, with its tests.
-  2. Skills and agents already written, so Copilot can plan, build, test, and release the next change.
-  3. A new request lands on that setup.
-  The question, on its own line: Will the help we already have solve this request at a cost we can accept?
-  The engineer's move, on its own line: Find out what this request would cost with the current skills, then change the setup where that cost is not earned.
-- **Visual:** Left, the application, already standing. Middle, a small set of skill and agent files attached to it. Right, a new request arriving as a card. A question under the three, not a diagram of the answer.
-- **Speaker:** The team is not starting from an empty repository. Someone has already written the skills and agents that Copilot loads. Those files were written for the application in general, not for the request that just arrived. Today we treat that inherited help as an engineering decision: keep what this request needs, rewrite what is too broad, and stop loading what this request does not need. We do that one stage at a time, and we check the feature still gets built.
-- **Interaction:** Chat. If a new request arrived on your team tomorrow, would you trust the skills already in the repo, or would you read them first?
-- **Leave off:** SR-142's criteria. The catch-all skill by name. Any token figure. The four-step loop. That arrives on the next slides, as the way through the question.
+  2. Skills and agents already in place, ready to be used again.
+  3. A new request, which those skills were not written for.
+  Closing line: Reuse is the goal. Running them as they stand is not the first move.
+- **Visual:** The application, the skill files attached to it, and a request card that has not been started.
+- **Speaker:** We are not starting from an empty repository. The skills exist so the next change can reuse them. The job in this room is to decide whether those tools fit this request before anyone runs the workflow.
+- **Interaction:** Chat. Would you run the request on the skills already in the repo, or read them first?
+- **Leave off:** SR-142's criteria. Token figures. The stage-by-stage edits.
 
 ## Slide 1 — Cut the cost of a Copilot workflow
 
-- **On screen:** 0:05–0:07, while the room settles.
-- **Purpose:** Name the session and the tool.
-- **On-slide copy:** Title. One line: a feature request is priced with the skills it loads, then those skills are rewritten, stage by stage. GitHub Copilot. Two hours.
-- **Visual:** Five stage names in a row: Planning, Skill refinement, Implementation, Testing and review, Release. No icons that imply a cloud bill.
-- **Speaker:** This is a working session on Copilot skills, prompts, and agents. The first 80 minutes are demonstrated. The last 40 are the lab.
-- **Leave off:** Learning-objective paragraphs. The course code. Any dollar figure.
+- **On screen:** 0:05–0:07.
+- **Purpose:** Name the session.
+- **On-slide copy:** Title. One line: understand the workflow, tune the skills to the spec, then run. GitHub Copilot. Two hours.
+- **Visual:** Two parts. Part 1: the language. Part 2: the request, stage by stage.
+- **Speaker:** The first part is how a workflow is spoken about, and how a spec connects to the skills that carry it out. The second part is SR-142, where we update those skills before the process runs. The last 40 minutes are the lab.
+- **Leave off:** The course code. Any dollar figure.
 
-## Slide 2 — A request has arrived
+## Slide 2 — The language
 
-- **On screen:** 0:02–0:08. Leave it up while `examples/sr-142/shared/sr-142.md` is on the shared screen.
-- **Purpose:** Give the room the feature the demo will not abandon.
-- **On-slide copy:** SR-142, add request priority. Five criteria only: Low, Medium, and High; selectable on create and edit; validated and stored by the API; filterable on the dashboard; existing requests default to Medium. Tests and CI.
-- **Visual:** The five criteria as a short list. The feature title as the heading.
-- **Speaker:** Read the criteria from the file, then show this slide as the reminder. Do not read the badge complication yet.
-- **Interaction:** None.
-- **Leave off:** The badge colours. The solution. Any skill name.
+- **On screen:** 0:07–0:14.
+- **Purpose:** Give the room the words used for the rest of the session.
+- **On-slide copy:** Five words, each with one line.
+  - **Spec.** What this request must do. The acceptance criteria.
+  - **Skill.** A reusable file that tells Copilot how to carry out a kind of task.
+  - **Prompt.** The ask for this one call.
+  - **Stage.** One step: plan, choose the skills, implement, test, or release.
+  - **Workflow.** The stages in order, and which skills each stage loads.
+- **Visual:** The five words in a column. Spec at the top, workflow at the bottom, with a line from spec to skill.
+- **Speaker:** An agent is a role file. It can tell Copilot to follow a skill, or to ignore a narrower one. We will meet agents when a skill is not the only file on the call. Stay with these five words until SR-142 is on screen.
+- **Leave off:** File paths. The catch-all skill. Token buckets.
 
-## Slide 3 — It can work and still cost too much
+## Slide 3 — The spec chooses the skill
 
-- **On screen:** a beat inside 0:02–0:08, after the criteria.
-- **Purpose:** Separate a working feature from an affordable workflow.
-- **On-slide copy:** The inherited skills can produce the feature. They also survey the repository, load a catch-all skill on every stage, and ask for work the criteria do not name.
-- **Visual:** Two labels on one request: "Feature can be built" and "This call is doing more than the feature."
-- **Speaker:** We are not starting by picking a cheaper model. We are looking at what this request sends.
-- **Leave off:** Token totals. The optimised workflow.
+- **On screen:** 0:14–0:18.
+- **Purpose:** Connect understanding the spec to the skill that should carry it out.
+- **On-slide copy:** Read the spec first. Then ask which skill can carry out that task. A skill that does not match the spec still runs. The output then includes work the spec never asked for.
+- **Visual:** Spec on the left, skill on the right, an arrow only when they match. A second skill sits unconnected, labelled "loaded anyway."
+- **Speaker:** Understanding the spec is what lets you pick, keep, or rewrite a skill. If you skip that reading, reuse loads the wrong tool and the output grows.
+- **Leave off:** A worked example from SR-142. That is the next part of the hour.
 
-## Slide 4 — Two moves at every stage
+## Slide 4 — Use a skill again. Tune it first.
 
-- **On screen:** 0:08, and again whenever a stage opens.
-- **Purpose:** Teach the demo once.
-- **On-slide copy:** 1. Amend the skill. 2. See the difference for this stage. Then the next stage.
-- **Visual:** Two boxes. The stage name sits above them, blank, so the trainer can say it.
-- **Speaker:** We will do this five times on SR-142. Open the inherited skill, show the amended skill, then read only that stage of the compare.
-- **Leave off:** A four-step method. A form. A total for the whole feature. That total waits until every stage has been amended.
+- **On screen:** 0:18–0:22.
+- **Purpose:** Say what reuse does to the output.
+- **On-slide copy:** A skill is written once and loaded again, on the next stage and on the next request. That is the point of having skills. A skill reused unchanged is only a saving when it still matches the spec. A wide skill, reused on every stage, makes every output wider.
+- **Visual:** One skill file with arrows into several stages. One arrow is marked "fits." The others are marked "too wide."
+- **Speaker:** Reuse is the final goal, not the first action. Loading yesterday's skill on today's request can be the expensive choice. The output is optimised when the skill that gets reused is the one that fits.
+- **Leave off:** A percentage. A model comparison.
 
-## Slide 5 — Five stages, one request
+## Slide 5 — The engineer's job
 
-- **On screen:** with slide 4, still before 0:18.
-- **Purpose:** Show that the request is not one Copilot call.
-- **On-slide copy:** Planning decides the change. Skill refinement decides what later calls load. Implementation makes the change. Testing and review checks it. Release writes the note. Each stage is priced on its own.
-- **Visual:** The five names, each with the one-line job above. An arrow from Release back to the loop, labelled "the next request."
-- **Speaker:** A saving on Planning that pushes the work into Implementation is not a saving yet.
-- **Leave off:** File trees.
+- **On screen:** 0:22–0:26. This is a discussion, not a demo.
+- **Purpose:** Name the role before any file is edited.
+- **On-slide copy:** Heading: The tools may already be in place. Reuse is still the goal.
+  The job: update the tools so they are minimal and fitted to this spec, before the process runs.
+  One line under it: A software engineer knows how to go about fixing the problem.
+- **Visual:** A sequence of three marks. Tools in place. Engineer updates them. Then the process runs.
+- **Speaker:** We do not throw the skills away, and we do not hope they already fit. The fix is a way of working: read the spec, see what this stage would load, change the skill or leave it unused, and only then run the call. That is the same job on the next request, which is why the tuned skill can be reused.
+- **Interaction:** Chat. What would you check before you let Copilot run on a skill you did not write for this request?
+- **Leave off:** The answer key for SR-142.
 
-## Slide 6 — Price the inherited workflow first
+## Slide 6 — The steps, before the process runs
 
-- **On screen:** 0:08–0:18, behind the terminal.
-- **Purpose:** Make the baseline the thing being beaten.
-- **On-slide copy:** Heading: Inherited cost, before any rewrite. Three words under it: stage, files loaded, tokens. A blank fourth line labelled "after the rewrite" with nothing in it.
-- **Visual:** A five-row table with the baseline column filled in the speaker notes, not on the slide. The rewrite column is an empty track.
-- **Speaker:** Run the compare and read the inherited side of one stage only when you are about to amend that stage. Name the catch-all `feature-development` skill when it appears. Do not read the amended total yet. The testing retry is illustrative, not a `/usage` reading.
-- **Leave off:** The 64% figure. The optimised column. A rate card.
+- **On screen:** 0:26, and again at the start of each stage.
+- **Purpose:** Give the room the steps the demos will follow.
+- **On-slide copy:** For each stage: 1. Read what this stage must do, from the spec. 2. Amend the skill so it carries out that task and nothing wider. 3. See the difference. 4. Only then go on to the next stage.
+- **Visual:** Four short steps. Step 4 is "next stage," not "run the whole feature."
+- **Speaker:** We will do this on SR-142, five times. The compare is how we see the difference. We do not start the next stage until this skill matches the spec.
+- **Leave off:** The whole-feature total. That waits until the last stage.
 
-## Slide 7 — What the price is made of
+## Slide 7 — A request has arrived
 
-- **On screen:** a beat inside 0:08–0:18, when the trainer opens Token categories on Planning.
-- **Purpose:** Give the room four buckets so later stages are readable.
-- **On-slide copy:** Fresh input. Cached input, for a stable file that already appeared. Output. Retries, as their own calls. A stable instruction is paid for on the first stage, then reused.
-- **Visual:** Four short bars labelled with those names. No axis scale. Output and retries marked as the expensive buckets. Cached input marked as the cheap bucket.
-- **Speaker:** When the compare shows the same instructions file as fresh input on Planning and cached input later, say that once. A file estimate misses tool calls until a live `/usage` is read.
-- **Leave off:** The per-token rate table. Model names other than the one the room is using.
+- **On screen:** 0:26–0:32. Leave it up while `examples/sr-142/shared/sr-142.md` is read.
+- **Purpose:** Turn the language into this spec.
+- **On-slide copy:** SR-142, add request priority. Low, Medium, and High. Selectable on create and edit. Validated and stored. Filterable on the dashboard. Existing requests default to Medium. Tests and CI.
+- **Visual:** The criteria as the spec. A caption: which skill can carry this out?
+- **Speaker:** Read the file. Do not read the badge yet. Ask which of these lines a planning skill must keep, and which lines are not this stage's job. The inherited skills can build the feature. Several of them also survey the repository and load a catch-all skill on every stage.
+- **Leave off:** The badge colours. The rewritten skill. Any token total.
 
 ## Slide 8 — Planning: what this call may do
 
-- **On screen:** 0:18, at the start of Planning.
+- **On screen:** 0:32, at the start of Planning.
 - **Purpose:** Bound the stage before showing its cost.
 - **On-slide copy:** This call produces a plan for a one-field change. It does not implement the API, write the tests, or write the release notes.
 - **Visual:** The stage name, and a single line quoted from the acceptance criteria: existing requests default to Medium.
@@ -104,7 +110,7 @@ Build rules for every slide:
 
 ## Slide 9 — Planning: price, then rewrite
 
-- **On screen:** 0:18–0:28, while the two planning skills are side by side.
+- **On screen:** 0:32–0:38, while the two planning skills are side by side.
 - **Purpose:** Show the inherited cost and the edit.
 - **On-slide copy:** Inherited call loads the planning skill and the catch-all skill, and it asks for a repository survey. Rewrite: plan the priority field only. Leave the catch-all skill unused on this call.
 - **Visual:** Two file names, inherited and rewritten. Three words under the rewritten file: field, default, tests to extend.
@@ -113,7 +119,7 @@ Build rules for every slide:
 
 ## Slide 10 — Planning: follow through
 
-- **On screen:** 0:28–0:30.
+- **On screen:** 0:38–0:40.
 - **Purpose:** Close the stage before leaving it.
 - **On-slide copy:** Reprice this stage only. The plan still names Low, Medium, High, and the Medium default. The instructions file is stable, so the next stage can treat it as cached.
 - **Visual:** The two moves, with "See the difference" highlighted, and Low, Medium, High, and the Medium default listed as what the amended plan still names.
@@ -122,7 +128,7 @@ Build rules for every slide:
 
 ## Slide 11 — Skill refinement: this call chooses what later calls load
 
-- **On screen:** 0:30–0:34.
+- **On screen:** 0:40–0:44.
 - **Purpose:** Stop the room treating this stage as a second planning pass.
 - **On-slide copy:** The request is: which skills should the rest of this feature load? The inherited call sends every skill and both agents.
 - **Visual:** A stack of file names from the baseline skill-refinement stage. No sizes yet.
@@ -131,7 +137,7 @@ Build rules for every slide:
 
 ## Slide 12 — Retain, modify, or leave unused
 
-- **On screen:** 0:34–0:38.
+- **On screen:** 0:44–0:48.
 - **Purpose:** Make the decision vocabulary stick.
 - **On-slide copy:** Three labels only: Retain. Modify. Leave unused. One line under them: a skill that does not match this request is left on disk, not loaded.
 - **Visual:** Three columns. The trainer fills one asset per column out loud. Do not pre-fill the columns on the slide.
@@ -141,7 +147,7 @@ Build rules for every slide:
 
 ## Slide 13 — A shorter file can cost more
 
-- **On screen:** 0:38–0:42.
+- **On screen:** 0:48–0:50.
 - **Purpose:** Stop "smallest estimate" being the rewrite.
 - **On-slide copy:** The one-line skill estimates smaller than the focused API skill. It also drops validation, the allowed values, and the tests to keep. The follow-up call is the expensive part. Record it as a retry.
 - **Visual:** Three files in a row: inherited API skill, one-line trap, focused API skill. The trap is visibly the shortest. A caption: shortest is not the result.
@@ -150,7 +156,7 @@ Build rules for every slide:
 
 ## Slide 14 — Implementation: what this call may do
 
-- **On screen:** 0:42–0:46.
+- **On screen:** 0:50–0:54.
 - **Purpose:** Bound the build stage.
 - **On-slide copy:** This call adds priority to the API and the form. It does not survey the repository again, regenerate the suite, or invent a colour scale.
 - **Visual:** The stage name and the criteria that belong to this call: validate in the service, default Medium, filter on the dashboard.
@@ -160,7 +166,7 @@ Build rules for every slide:
 
 ## Slide 15 — Implementation: what to stop loading
 
-- **On screen:** 0:46–0:52.
+- **On screen:** 0:54–0:58.
 - **Purpose:** Show the rewrite of the call, not a new feature.
 - **On-slide copy:** Leave the catch-all skill and the developer agent unused. Keep the React skill. Load the rewritten API skill. Add the priority instructions as path-scoped, next to the files they affect.
 - **Visual:** A before/after file list for this stage only. Path-scoped is a label on one file, not a new stage.
@@ -169,7 +175,7 @@ Build rules for every slide:
 
 ## Slide 16 — A new constraint arrives. Price it before the next call
 
-- **On screen:** 0:52–0:56.
+- **On screen:** 0:58–1:02.
 - **Purpose:** Show follow-through when the request changes mid-stage.
 - **On-slide copy:** The priority badge uses the existing design-system tones. Low is neutral, Medium is attention, High is urgent. Add that sentence, then estimate again, then call Copilot.
 - **Visual:** The two moves, with both highlighted. The three tones as text, not as a made-up palette.
@@ -178,7 +184,7 @@ Build rules for every slide:
 
 ## Slide 17 — Testing: the inherited call pays twice
 
-- **On screen:** 0:56–1:02.
+- **On screen:** 1:02–1:06.
 - **Purpose:** Connect a broad skill to a retry.
 - **On-slide copy:** This call extends the request tests. It does not replace the suite. The inherited call loads the catch-all skill and the broad test skill, then pays a retry because priority validation was missed.
 - **Visual:** The stage, plus a second chip labelled "Retry" sitting beside it. The chip says "illustrative, until a live call replaces it."
@@ -187,7 +193,7 @@ Build rules for every slide:
 
 ## Slide 18 — A cheaper run can be the wrong result
 
-- **On screen:** 1:02–1:06.
+- **On screen:** 1:06–1:10.
 - **Purpose:** Show the quality bar rejecting a token cut.
 - **On-slide copy:** If the existing auth and validation tests were removed to shrink the prompt, the cut is not a saving. The percentages can stay on screen. They are not the result.
 - **Visual:** Large text: "Not a saving: the existing tests are no longer in the skill."
@@ -197,7 +203,7 @@ Build rules for every slide:
 
 ## Slide 19 — Release: rewrite the call, not the feature
 
-- **On screen:** 1:06–1:12.
+- **On screen:** 1:10–1:14.
 - **Purpose:** Show a stage where the right skill is already the right size.
 - **On-slide copy:** This call writes the note and names the local CI command. Nothing is deployed. Both sides load the release skill. Only the inherited call also reloads the catch-all skill.
 - **Visual:** Two file lists. The release skill appears on both. The catch-all skill appears on one.
@@ -206,20 +212,20 @@ Build rules for every slide:
 
 ## Slide 20 — Tokens and credits do not move together
 
-- **On screen:** 1:12–1:16, optional model switch included if the clock allows.
+- **On screen:** 1:14–1:16.
 - **Purpose:** Explain the gap between the two headlines.
 - **On-slide copy:** Credits move further than tokens when output and retries shrink, because those buckets cost more than cached input. Changing the model changes the credits and leaves the token count where it is.
 - **Visual:** Two headlines with blank numbers, labelled Tokens and Credits. The speaker writes the SR-142 figures in the notes, not as a baked-in image: about 11,735 against 4,197 tokens (64.2% fewer), about 3.49 credits against 0.83 (76.1% fewer).
 - **Speaker:** Say those figures only after every stage has been amended on screen. Read them from the **All stages** block of the compare.
 - **Leave off:** A ranking of models. A recommendation to switch model as the optimisation.
 
-## Slide 21 — The loop is the thing to reuse
+## Slide 21 — Tune the tool, then it can be reused
 
 - **On screen:** 1:16–1:20.
-- **Purpose:** Hand the method to the room before the lab.
-- **On-slide copy:** Amend the skill. See the difference. Then the next stage. SR-142 is finished. The lab is a different request.
-- **Visual:** The two moves, with SR-142 marked done and SR-263 named as the lab. No hint of the SR-263 answer.
-- **Speaker:** Baseline workflows stay read-only. Edits go in `my-workflow.json`. The reference folder stays closed until the delegate has made a recommendation.
+- **Purpose:** Hand the job to the room before the lab.
+- **On-slide copy:** The skills were already there. We updated them to this spec before the process ran. That is how they become reusable. SR-142 is finished. The lab is a different spec, and the same job.
+- **Visual:** The four steps from slide 6, with SR-263 named as the next spec. No hint of its answer.
+- **Speaker:** The job is knowing how to go about the fix: read the spec, amend the skill, see the difference, then run. Baseline files stay read-only. Edits go in `my-workflow.json`. The reference folder stays closed until the delegate has made a recommendation.
 - **Leave off:** SR-263's skill decisions. The trap files.
 
 ## Slide 22 — Your request is SR-263

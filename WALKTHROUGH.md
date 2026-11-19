@@ -37,17 +37,50 @@ Leave the baseline files unchanged during the demo. The amended files are alread
 
 ## Teaching, 0–80 minutes
 
-Delegates watch. They do not edit.
+Delegates watch. They do not edit until the lab.
 
-### 0–8 — The request, and the skills already in place
+The first 26 minutes are the language and the job. No compare yet. Slides 0–7.
+
+### 0–7 — The tools are already there
+
+1. The application exists. Skills and agents are already written so the next change can reuse them.
+2. A new request has arrived. Those skills were not written for it.
+3. Say the line: reuse is the goal. Running the skills as they stand is not the first move.
+
+### 7–18 — The language, and the spec
+
+Teach five words, and stop there.
+
+| Word | Meaning in this room |
+| --- | --- |
+| Spec | What the request must do. The acceptance criteria. |
+| Skill | A reusable file that tells Copilot how to carry out a kind of task. |
+| Prompt | The ask for this one call. |
+| Stage | One step: plan, choose the skills, implement, test, or release. |
+| Workflow | The stages in order, and which skills each stage loads. |
+
+An agent is a role file. Mention it only as something that can follow a skill or override a narrower one. Do not open the agent files yet.
+
+Then the link: read the spec, then choose the skill that can carry that task out. A skill that does not match the spec still runs, and the output includes work the spec never asked for.
+
+### 18–26 — Use, reuse, and the engineer's job
+
+1. A skill is written once and loaded again, on the next stage and the next request. That is the point of skills.
+2. A wide skill reused on every stage makes every output wider. Reuse is a saving only when the skill still matches the spec.
+3. Discussion, before any file is edited. The tools may already be in place. The engineer updates them so they are minimal and fitted to this spec, before the process runs. The job is knowing how to go about the fix.
+4. The steps you will repeat: read what this stage must do, amend the skill, see the difference, then the next stage.
+
+Chat, if the room is quiet: what would you check before you let Copilot run on a skill you did not write for this request?
+
+### 26–32 — SR-142 is the spec
 
 1. Read `examples/sr-142/shared/sr-142.md`. Low, Medium, and High. Medium default. API validation. Dashboard filter. Tests. CI.
 2. Leave the badge unread. It arrives during Implementation.
-3. Open `examples/sr-142/baseline/skills/feature-development/SKILL.md`. It plans, edits, tests, reviews, and writes release notes, and the baseline workflow loads it at every stage.
+3. Open `examples/sr-142/baseline/skills/feature-development/SKILL.md` only long enough to show a skill that was written for any feature, and is loaded at every stage.
 
-Done when the room can say what SR-142 must still do after a skill is shortened.
+Done when the room can point at one line of the spec and say whether this stage's skill has to carry it.
 
-### 8–30 — Planning
+### 32–40 — Planning
 
 1. **Amend.** Open `examples/sr-142/baseline/skills/feature-planning/SKILL.md` beside `examples/sr-142/optimised/skills/feature-planning/SKILL.md`. The inherited skill surveys the whole repository. The amended skill plans the priority field only. Leave `feature-development` off this call. Read `examples/sr-142/baseline/prompts/planning.md` and point at the sentences that ask for the survey, the tests, and the release notes.
 2. **See the difference.**
@@ -58,7 +91,7 @@ Done when the room can say what SR-142 must still do after a skill is shortened.
 
    Then read only the **Planning** block of the compare. Inherited file context is about **1,446**. Amended file context is about **654**. The plan still has to name Low, Medium, High, and the Medium default.
 
-### 30–42 — Skill refinement
+### 40–50 — Skill refinement
 
 1. **Amend.** Read `examples/sr-142/baseline/prompts/skill-refinement.md`. The inherited call sends every skill and both agents. The amended call sends only the API skill that is about to be rewritten. For each asset, say retain, modify, or leave unused. Use the trainer key if the room stalls.
 2. **See the difference.** Show the one-line trap before anyone treats "shorter" as the amendment:
@@ -70,18 +103,18 @@ Done when the room can say what SR-142 must still do after a skill is shortened.
 
    The trap estimates smaller. It also leaves out validation, the allowed values, and the tests to keep. Open both files and read the lines the trap does not have. Then read only the **Skill refinement** block of the compare.
 
-### 42–56 — Implementation
+### 50–62 — Implementation
 
 1. **Amend.** Read `examples/sr-142/baseline/prompts/implementation.md`, then `examples/sr-142/optimised/prompts/implementation.md`. Leave `feature-development` and the developer agent unused. Keep the React skill. Load the rewritten API skill. Add `examples/sr-142/shared/instructions/priority.instructions.md` beside the files it affects, not in the always-on instructions.
 2. **See the difference.** Read only the **Implementation** block.
 3. Then read the complication in `sr-142.md`: the badge uses the existing tones. Low is neutral, Medium is attention, High is urgent. Add that sentence to the amended prompt and run the compare again before any live Copilot call. If Copilot is available, send that call and read `/usage` in the terminal. If the reply skips service-layer validation, say so. That follow-up is part of the cost.
 
-### 56–66 — Testing and review
+### 62–70 — Testing and review
 
 1. **Amend.** Open the two test skills. The inherited skill regenerates the suite. The amended skill extends the request tests and keeps the auth and validation tests. Leave the catch-all skill unused. Keep the code-review skill and the reviewer agent.
 2. **See the difference.** Read only the **Testing and review** block. The inherited side includes an illustrative retry of 2,200 input and 900 output, because the broad skill missed priority validation. The report labels it. It is not a `/usage` reading. If a rewrite drops the existing tests, say the smaller number is not a result. The tests are still missing in the file.
 
-### 66–76 — Release
+### 70–76 — Release
 
 1. **Amend.** Read both release prompts and `examples/sr-142/shared/skills/release-preparation/SKILL.md`. The release skill is already a short note and a local CI result. Do not rewrite it. Leave `feature-development` unused. The amended prompt asks for user-visible behaviour, the Medium default, and the test command. Nothing is deployed.
 2. **See the difference.** Read only the **Release** block. Both sides load the release skill. Only the inherited side also reloads the catch-all skill.
@@ -188,12 +221,15 @@ Use this to unblock the demo. The lab key is `examples/sr-263/reference/KEY.md`.
 
 | Minutes | Who | What they do |
 | --- | --- | --- |
-| 0–8 | Trainer | SR-142 arrives. Show the catch-all skill. |
-| 8–30 | Trainer | Planning: amend the skill, read the difference. |
-| 30–42 | Trainer | Skill refinement, including the too-short file. |
-| 42–56 | Trainer | Implementation, then the badge sentence. |
-| 56–66 | Trainer | Testing and review. A dropped test is not a saving. |
-| 66–76 | Trainer | Release. The release skill stays. The prompt changes. |
+| 0–7 | Trainer | The tools are already there. Reuse is the goal. Do not run yet. |
+| 7–18 | Trainer | The language. Spec, skill, prompt, stage, workflow. |
+| 18–26 | Trainer | Reuse, then the engineer's job: tune the tools before the process runs. |
+| 26–32 | Trainer | SR-142 is the spec. Show the catch-all skill. |
+| 32–40 | Trainer | Planning: amend the skill, read the difference. |
+| 40–50 | Trainer | Skill refinement, including the too-short file. |
+| 50–62 | Trainer | Implementation, then the badge sentence. |
+| 62–70 | Trainer | Testing and review. A dropped test is not a saving. |
+| 70–76 | Trainer | Release. The release skill stays. The prompt changes. |
 | 76–80 | Trainer | All stages, then hand over to SR-263. |
 | 80–88 | Delegates | Read SR-263. Copy the baseline. |
 | 88–112 | Delegates | Amend each stage, then read that stage. |

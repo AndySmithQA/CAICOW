@@ -1,6 +1,6 @@
 # Token usage toolkit
 
-Measurement toolkit for a two-hour GitHub Copilot course. The trainer spends 80 minutes on SR-142. At each stage they amend the skill, then read the difference for that stage. Delegates spend 40 minutes doing the same on SR-263. The run of show is in `WALKTHROUGH.md`.
+Measurement toolkit for a two-hour GitHub Copilot course. The trainer spends the first 26 minutes on the workflow language and the engineer's job: tune the skills to the spec before the process runs. The rest of the first 80 minutes is SR-142, one stage at a time. Delegates spend 40 minutes doing the same job on SR-263. The run of show is in `WALKTHROUGH.md`.
 
 It extends the [Token Delegate Lab](https://github.com/AndySmithQA/Token-delegate-lab). The 30-minute lab's estimator is here as `tools/estimate-tokens.mjs`: about 4 characters per token, for comparing two files. This folder adds the workflow compare, which prices a feature from planning through to release.
 
@@ -42,16 +42,18 @@ Read one stage of the compare after you amend that stage. The whole-feature tota
 
 GitHub Copilot is the tool the course teaches. The first 80 minutes are the trainer, on the shared screen, taking SR-142 through every stage. The last 40 minutes are the delegate lab.
 
-At each stage the trainer amends the skill, then reads the difference for that stage.
+The opening teaches the words and the link from spec to skill. Reuse is the goal. The engineer updates the tools before the process runs. Then each stage is an amendment and a look at the difference.
 
 | Minutes | Who | What |
 | --- | --- | --- |
-| 0–8 | Trainer | The request lands. Show the catch-all skill. |
-| 8–30 | Trainer | Planning: amend the skill, read the difference. |
-| 30–42 | Trainer | Skill refinement, including the too-short file. |
-| 42–56 | Trainer | Implementation, then the badge sentence. |
-| 56–66 | Trainer | Testing and review. A dropped test is not a saving. |
-| 66–76 | Trainer | Release. The release skill stays. The prompt changes. |
+| 0–7 | Trainer | The tools are already there. Reuse is the goal. |
+| 7–18 | Trainer | The language: spec, skill, prompt, stage, workflow. |
+| 18–26 | Trainer | The engineer's job: tune the tools before the process runs. |
+| 26–40 | Trainer | SR-142 as the spec, then Planning. |
+| 40–50 | Trainer | Skill refinement, including the too-short file. |
+| 50–62 | Trainer | Implementation, then the badge sentence. |
+| 62–70 | Trainer | Testing and review. A dropped test is not a saving. |
+| 70–76 | Trainer | Release. The release skill stays. The prompt changes. |
 | 76–80 | Trainer | All stages, then hand over to SR-263. |
 | 80–120 | Delegates | Same two moves on SR-263. Ship, revise, or reject. |
 
