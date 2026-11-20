@@ -4,6 +4,8 @@ Twenty-five slides for the two-hour session. Slides 0–6 teach the language and
 
 The trainer works in the editor and the terminal while a slide is up. A slide states the decision. It does not replace the skill file or the compare.
 
+Each stage slide has an **App anchor**: the one file or test to open on the shared screen. It shows the stage is about the app, not about the workflow files alone.
+
 Build rules for every slide:
 
 - One idea. The title is that idea.
@@ -22,7 +24,7 @@ Build rules for every slide:
   2. Skills and agents already in place, ready to be used again.
   3. A new request, which those skills were not written for.
   Closing line: Reuse is the goal. Running them as they stand is not the first move.
-- **Visual:** A screenshot of the ServiceFlow dashboard from the `demo` folder, with its `.github/` folder tree beside it (always-on instructions, seven skills, two agents) and an SR-142 request card that has not been started.
+- **Visual:** A screenshot of the ServiceFlow dashboard from the `demo` folder, with its `.github/` folder tree beside it (always-on instructions, seven skills, two agents) and an SR-142 request card that has not been started. Capture it with `npm start` on port 3000 before the session.
 - **Speaker:** Switch to the running app for a few seconds, then back. We are not starting from an empty repository. The skills exist so the next change can reuse them. The job in this room is to decide whether those tools fit this request before anyone runs the workflow.
 - **Interaction:** Chat. Would you run the request on the skills already in the repo, or read them first?
 - **Leave off:** SR-142's criteria. Token figures. The stage-by-stage edits.
@@ -104,6 +106,7 @@ Build rules for every slide:
 - **Purpose:** Bound the stage before showing its cost.
 - **On-slide copy:** This call produces a plan for a one-field change. It does not implement the API, write the tests, or write the release notes.
 - **Visual:** The stage name, and a single line quoted from the acceptance criteria: existing requests default to Medium.
+- **App anchor:** `src/api/requests/validation.mjs` (the allowed values and the rules), and `src/api/requests/service.mjs` (create and update, where the plan lands).
 - **Speaker:** Open `course/baseline/prompts/planning.md` and read it. Ask the room which sentence asks for work this stage should not do.
 - **Interaction:** Chat. One sentence from the prompt that does not belong in a plan.
 - **Leave off:** The rewritten prompt.
@@ -132,6 +135,7 @@ Build rules for every slide:
 - **Purpose:** Stop the room treating this stage as a second planning pass.
 - **On-slide copy:** The request is: which skills should the rest of this feature load? The inherited call sends every skill and both agents.
 - **Visual:** A stack of file names from the baseline skill-refinement stage. No sizes yet.
+- **App anchor:** `test/validation.test.mjs`. The focused skill keeps this file in the run.
 - **Speaker:** Open the baseline prompt and the file list in the report. Say that comparing files the trainer already has open does not need to be a Copilot call.
 - **Leave off:** The retain / modify / leave unused answers. Those are the next slide, revealed after the room has seen the list.
 
@@ -151,7 +155,7 @@ Build rules for every slide:
 - **Purpose:** Stop "smallest estimate" being the rewrite.
 - **On-slide copy:** The one-line skill estimates smaller than the focused API skill. It also drops validation, the allowed values, and the tests to keep. The follow-up call is the expensive part. Record it as a retry.
 - **Visual:** Three files in a row: inherited API skill, one-line trap, focused API skill. The trap is visibly the shortest. A caption: shortest is not the result.
-- **Speaker:** Run the two `estimate-tokens.mjs` commands from the walkthrough. Open `course/traps/api-too-short.md` and the focused skill. Read the lines the trap does not have.
+- **Speaker:** Run the two `estimate-tokens.mjs` commands from the walkthrough. Open `course/traps/api-too-short.md` and the focused skill. Read the lines the trap does not have. Point at `test/validation.test.mjs` on the app side: the trap says nothing about validation, so it would not keep that file in the run.
 - **Leave off:** A claim that the focused skill is the minimum possible length.
 
 ## Slide 14 — Implementation: what this call may do
@@ -160,6 +164,7 @@ Build rules for every slide:
 - **Purpose:** Bound the build stage.
 - **On-slide copy:** This call adds priority to the API and the form. It does not survey the repository again, regenerate the suite, or invent a colour scale.
 - **Visual:** The stage name and the criteria that belong to this call: validate in the service, default Medium, filter on the dashboard.
+- **App anchor:** `src/ui/dashboard/page.mjs` (the status badge is built here today; priority badges go beside it).
 - **Speaker:** Read the baseline implementation prompt, then the challenge prompt. Ask which inherited sentence creates the extra cost.
 - **Interaction:** Chat. One sentence to delete from the inherited prompt.
 - **Leave off:** The badge complication. It is the next slide, after this call has a price.
@@ -177,9 +182,10 @@ Build rules for every slide:
 
 - **On screen:** 0:58–1:02.
 - **Purpose:** Show follow-through when the request changes mid-stage.
-- **On-slide copy:** The priority badge uses the existing design-system tones. Low is neutral, Medium is attention, High is urgent. Add that sentence, then estimate again, then call Copilot.
+- **On-slide copy:** The priority badge uses the design system's tones: Low neutral, Medium attention, High urgent. Check the dashboard, then price the change before the next call.
 - **Visual:** The two moves, with both highlighted. The three tones as text, not as a made-up palette.
-- **Speaker:** Read the complication from `sr-142.md`. Add it to the amended prompt on screen, then run the compare again. If Copilot is available, send the call and read `/usage` in the terminal. If the reply skips service-layer validation, say that the follow-up is part of the cost.
+- **App anchor:** `src/ui/dashboard/page.mjs`, the `statusTone` map that sets badge tones.
+- **Speaker:** This is the one live edit. It happens in a copy, `course/work/`, so the optimised files stay as they are. Run `Copy-Item -Recurse course/optimised course/work` in `demo/`. Open `course/work/prompts/implementation.md`. Delete the line that points at the path-scoped instructions for badge tones. That leaves the prompt with no badge rule, which is what a draft that missed the complication looks like. Compare the Implementation block of `course/work/workflow.json`. Then type "Badge tones: Low is neutral, Medium is attention, High is urgent, from the design system." Save, and compare again. Say the difference out loud. If Copilot is available, send the call from a live copy and read `/usage`. If the reply skips service-layer validation, say that the follow-up is part of the cost.
 - **Leave off:** A new colour scale. A production deploy.
 
 ## Slide 17 — Testing: the inherited call pays twice
@@ -188,6 +194,7 @@ Build rules for every slide:
 - **Purpose:** Connect a broad skill to a retry.
 - **On-slide copy:** This call extends the request tests. It does not replace the suite. The inherited call loads the catch-all skill and the broad test skill, then pays a retry because priority validation was missed.
 - **Visual:** The stage, plus a second chip labelled "Retry" sitting beside it. The chip says "illustrative, until a live call replaces it."
+- **App anchor:** `npm test`, and the two files that must stay in the run: `test/auth.test.mjs` and `test/validation.test.mjs`.
 - **Speaker:** Open both test skills. The rewrite extends the request tests and keeps the auth and validation tests. Leave the catch-all skill unused. Keep the code-review skill and the reviewer agent.
 - **Leave off:** A fake `/usage` number presented as measured.
 
@@ -197,6 +204,7 @@ Build rules for every slide:
 - **Purpose:** Show the quality bar rejecting a token cut.
 - **On-slide copy:** If the existing auth and validation tests were removed to shrink the prompt, the cut is not a saving. The percentages can stay on screen. They are not the result.
 - **Visual:** Large text: "Not a saving: the existing tests are no longer in the skill."
+- **App anchor:** `test/auth.test.mjs`. Show that it is still in the skill's run.
 - **Speaker:** Open the amended test skill and show the auth and validation tests still named. If they were deleted, the smaller number on the compare is not the result. Point at the missing lines in the file.
 - **Interaction:** None. Do not invite the room to clear the warning.
 - **Leave off:** A green percentage beside the warning.
@@ -207,6 +215,7 @@ Build rules for every slide:
 - **Purpose:** Show a stage where the right skill is already the right size.
 - **On-slide copy:** This call writes the note and names the local CI command. Nothing is deployed. Both sides load the release skill. Only the inherited call also reloads the catch-all skill.
 - **Visual:** Two file lists. The release skill appears on both. The catch-all skill appears on one.
+- **App anchor:** `.github/workflows/ci.yml`. It runs the same `npm test` on screen.
 - **Speaker:** Read both release prompts and the release skill. Leave `feature-development` unused. Do not ask Copilot to restate the implementation. If there is a live call, the note covers user-visible behaviour, the Medium default, and the test command.
 - **Leave off:** A production pipeline. A second rewrite of the release skill.
 
@@ -234,7 +243,7 @@ Build rules for every slide:
 - **Purpose:** Start the lab on a feature they have not watched you solve.
 - **On-slide copy:** Reopen a resolved request with a reason. Only Resolved can be reopened. The reporter or the assignee may do it. The reason has at least 15 characters and is stored through the existing comment API. Status becomes Open. Priority is unchanged. One audit row: who, when, and the comment id. Existing resolve tests and comment tests stay.
 - **Visual:** The criteria as a list. A footer: same five stages. Amend the skill, then see the difference.
-- **Speaker:** Point at `lab/course/LAB.md`. Tell them the complication is in the feature file and they should read it before Implementation. Do not explain how to satisfy it.
+- **Speaker:** Hand delegates the `lab/` folder. Point them at `lab/course/LAB.md`, the delegate brief. Tell them the complication is in the feature file and they should read it before Implementation. Do not explain how to satisfy it.
 - **Leave off:** Which skill to delete. The word "catalog." The traps folder. Any reference-workflow number.
 
 ## Slide 23 — What you will hand in

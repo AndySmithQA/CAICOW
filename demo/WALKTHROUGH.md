@@ -1,17 +1,20 @@
-# Walkthrough: Copilot workflow optimisation
+# Walkthrough: Copilot workflow optimisation (trainer)
 
-Two-hour course on GitHub Copilot. The trainer spends 80 minutes on SR-142. Delegates spend 40 minutes on SR-263.
+This is the trainer's run of show for the 80-minute demo on SR-142. `SLIDES.md` says what is on screen. `INSTRUCTIONS.md` is the click-by-click. This file says what to say and why.
 
-The course is two folders, and each one stands on its own. Open `demo/` for the trainer demo and leave the terminal there for the first 80 minutes. Open `lab/` for the delegate lab and leave the terminal there for the last 40 minutes. Node.js 20 or newer is enough. There is no install. The shared screen is the editor and one terminal.
+Delegates do not open this folder. They work in `lab/`, and their brief is `lab/course/LAB.md`.
 
-Paths below are inside the folder you have open. `course/` in the demo is SR-142. `course/` in the lab is SR-263.
+Node.js 20 or newer. No install. Keep the terminal in `demo/` for the whole 80 minutes. Paths below are relative to `demo/`.
 
-| Folder | What it is |
+| Path | What it is |
 | --- | --- |
-| `demo/` | The trainer package. ServiceFlow before SR-142: the app, the inherited `.github/` setup, `course/` with the request and the amended skills, and `tools/` to measure a workflow. |
-| `lab/` | The delegate package. ServiceFlow a few releases later, before SR-263: priority has shipped, requests can wait for approval, and there are comments and an audit table. Same shape: app, `.github/`, `course/`, `tools/`. |
+| `app` (this folder) | ServiceFlow before SR-142: the app, the inherited `.github/` setup, and `tools/` to measure a workflow. |
+| `course/sr-142.md` | The SR-142 spec, including the badge complication. |
+| `course/baseline/` | The inherited workflow and its prompts. The measurement. Read-only. |
+| `course/optimised/` | The amended workflow, skills, and priority instructions. The reference for the demo. |
+| `course/traps/` | A one-line skill that estimates smaller and is not the answer. |
 
-SR-142 is request priority. The inherited setup in the demo's `.github/` loads a catch-all skill at every stage. The amended setup in `course/optimised/` leaves that skill out and loads one focused skill per stage.
+SR-142 is request priority. The inherited setup in `.github/` loads a catch-all skill at every stage. The amended setup in `course/optimised/` leaves that skill out and loads one focused skill per stage.
 
 Figures below are file estimates for the sample as it stands. Re-run the command if a skill has been edited. `/context` and `/usage` in Copilot CLI are the meters that match a live call.
 
@@ -37,15 +40,14 @@ A shorter file is not a win if it drops a check the next call has to put back.
 ## Setup
 
 ```powershell
-cd demo
 node --version
 npm test
 npm start
 ```
 
-`npm test` runs the app's tests and the measurement tests. `npm start` serves the dashboard on http://localhost:3000. Pick a user on the sign-in page. Stop the server with Ctrl+C. Stay in `demo/` for every compare.
+`npm test` runs the app's tests and the measurement tests. `npm start` serves the dashboard on http://localhost:3000. Pick a user on the sign-in page. Stop the server with Ctrl+C.
 
-Leave `.github/` unchanged during the demo. The baseline workflow measures those files. The amended files are already in `course/optimised/`. You are showing the amendment, not discovering it live, unless you want to type the change on screen.
+Leave `.github/` unchanged during the demo. The baseline workflow measures those files. The amended files are already in `course/optimised/`. You are showing the amendment, not discovering it live, except for the one live edit at minute 58.
 
 ## Teaching, 0–80 minutes
 
@@ -94,6 +96,8 @@ Done when the room can point at one line of the spec and say whether this stage'
 
 ### 32–40 — Planning
 
+**App anchor:** `src/api/requests/validation.mjs` and `src/api/requests/service.mjs`. The plan has to name the allowed values, the default, and the create and update functions.
+
 1. **Amend.** Open `.github/skills/feature-planning/SKILL.md` beside `course/optimised/skills/feature-planning/SKILL.md`. The inherited skill surveys the whole repository. The amended skill plans the priority field only. Leave `feature-development` off this call. Read `course/baseline/prompts/planning.md` and point at the sentences that ask for the survey, the tests, and the release notes.
 2. **See the difference.**
 
@@ -104,6 +108,8 @@ Done when the room can point at one line of the spec and say whether this stage'
    Then read only the **Planning** block of the compare. Inherited file context is about **1,448**. Amended file context is about **654**. The plan still has to name Low, Medium, High, and the Medium default.
 
 ### 40–50 — Skill refinement
+
+**App anchor:** `test/validation.test.mjs`. The focused skill keeps this file in the run. The one-line trap does not.
 
 1. **Amend.** Read `course/baseline/prompts/skill-refinement.md`. The inherited call sends every skill and both agents. The amended call sends only the API skill that is about to be rewritten. For each asset, say retain, modify, or leave unused. Use the trainer key if the room stalls.
 2. **See the difference.** Show the one-line trap before anyone treats "shorter" as the amendment:
@@ -117,16 +123,36 @@ Done when the room can point at one line of the spec and say whether this stage'
 
 ### 50–62 — Implementation
 
+**App anchor:** `src/ui/dashboard/page.mjs`, where the status badge is built today, and `src/api/requests/validation.mjs`, where priority validation goes.
+
 1. **Amend.** Read `course/baseline/prompts/implementation.md`, then `course/optimised/prompts/implementation.md`. Leave `feature-development` and the developer agent unused. Keep the UI components skill. Load the rewritten API skill. Add `course/optimised/instructions/priority.instructions.md`. Its `applyTo` is `src/api/requests/**` and `src/ui/dashboard/**`, the two app folders the change touches, so it is path-scoped rather than always-on.
 2. **See the difference.** Read only the **Implementation** block.
-3. Then read the complication in `sr-142.md`: the badge uses the existing tones. Low is neutral, Medium is attention, High is urgent. Add that sentence to the amended prompt and run the compare again before any live Copilot call. If Copilot is available, send that call and read `/usage` in the terminal. If the reply skips service-layer validation, say so. That follow-up is part of the cost.
+3. **The live edit (minute 58, slide 16).** Then read the complication in `course/sr-142.md`: the badge uses the existing tones. Low is neutral, Medium is attention, High is urgent. This edit happens in a copy, so the optimised files stay as they are:
+
+   ```powershell
+   Copy-Item -Recurse course/optimised course/work
+   ```
+
+   Delete the sentence "Badge tones come from the path-scoped priority instructions." from `course/work/prompts/implementation.md`, and run the Implementation compare on `course/work/workflow.json`:
+
+   ```powershell
+   node tools/workflow-usage.mjs compare course/baseline/workflow.json course/work/workflow.json
+   ```
+
+   Then type "Badge tones: Low is neutral, Medium is attention, High is urgent, from the design system." at the end of the same prompt, and compare again. Say the difference out loud. It is small, and it is cheaper than the follow-up call the complication would otherwise cause.
+
+   If Copilot is available, send the call from a live copy of the app (see below). Read `/usage`. If the reply skips service-layer validation, say so. That follow-up is part of the cost.
 
 ### 62–70 — Testing and review
 
-1. **Amend.** Open the two test skills. The inherited skill regenerates the suite. The amended skill extends the request tests and keeps the auth and validation tests. Those are real files: `test/auth.test.mjs` and `validation.test.mjs`. Leave the catch-all skill unused. Keep the code-review skill and the reviewer agent.
+**App anchor:** `npm test`, and the two files that must stay in the run: `test/auth.test.mjs` and `test/validation.test.mjs`.
+
+1. **Amend.** Open the two test skills. The inherited skill regenerates the suite. The amended skill extends the request tests and keeps the auth and validation tests. Leave the catch-all skill unused. Keep the code-review skill and the reviewer agent.
 2. **See the difference.** Read only the **Testing and review** block. The inherited side includes an illustrative retry of 2,200 input and 900 output, because the broad skill missed priority validation. The report labels it. It is not a `/usage` reading. If a rewrite drops the existing tests, say the smaller number is not a result. The tests are still missing in the file.
 
 ### 70–76 — Release
+
+**App anchor:** `.github/workflows/ci.yml`. It runs the same `npm test` you ran on screen.
 
 1. **Amend.** Read both release prompts and `.github/skills/release-preparation/SKILL.md`. The release skill is already a short note and a local CI result. Do not rewrite it. Leave `feature-development` unused. The amended prompt asks for user-visible behaviour, the Medium default, and the test command. Nothing is deployed.
 2. **See the difference.** Read only the **Release** block. Both sides load the release skill. Only the inherited side also reloads the catch-all skill.
@@ -134,107 +160,12 @@ Done when the room can point at one line of the spec and say whether this stage'
 ### 76–80 — The whole request, then hand over
 
 1. Read **All stages**. Expect about **11,744** inherited tokens and **4,204** amended tokens (**64.2% fewer**), and about **3.49** credits against **0.84**. Say this only after every stage has been amended on screen. Credits moved further than tokens because output and the testing retry cost more than a skill that is reused.
-2. The next 40 minutes are SR-263, in the `lab/` folder. Same two moves, same five stages. The baseline stays read-only. `lab/course/reference/` stays closed until a delegate has finished.
-
-## Lab, 80–120 minutes
-
-Delegates open the `lab/` folder and stay there. The brief they read is `course/LAB.md`.
-
-| File | Role |
-| --- | --- |
-| `.github/` | The inherited setup. Run the app and its tests. Do not edit `.github/`. |
-| `course/baseline/workflow.json` | Measures that inherited setup. Read it. Do not rewrite it. |
-| `course/work/` | The delegate's copy of `baseline/`. This is where they amend. |
-| `course/reference/` | Trainer key. Closed until the delegate has finished. |
-
-### 80–88 — Read the request
-
-1. Have delegates run `npm test` (48 app tests, plus the measurement tests) and look at `.github/`: eleven skills, two agents, and a route catalog in the always-on instructions.
-2. Read `course/sr-263.md`, including the complication. Do not explain how to satisfy it.
-3. Copy the baseline folder. The copy sits at the same depth as `baseline/`, so every path in it still resolves:
-
-   ```powershell
-   Copy-Item -Recurse course/baseline course/work
-   ```
-
-4. Ask each delegate to name one file the planning call loads that the acceptance criteria do not need.
-
-### 88–112 — Amend each stage, then look at that stage
-
-Work in order: Planning, skill refinement, implementation, testing and review, release. After each amendment, run:
-
-```powershell
-node tools/workflow-usage.mjs compare course/baseline/workflow.json course/work/workflow.json
-```
-
-Read only the stage just changed.
-
-Before anyone treats the shortest file as the amendment:
-
-```powershell
-node tools/estimate-tokens.mjs .github/skills/request-reopen/SKILL.md course/traps/reopen-too-short.md
-```
-
-The trap estimates smaller. Say so if someone uses it. Do not say which inherited file must stay.
-
-Rewritten skills go under `course/work/skills/`. Point `work/workflow.json` at them. Leave `baseline/` and the app's `.github/` unchanged. The inherited implementation retry is illustrative. Remove it from the copy only when the two skills no longer disagree.
-
-Done when the amended implementation still names who may reopen, the reason rule, where the reason is stored, and that priority does not change. A workflow that only deletes the longest skill is not finished.
-
-### 112–120 — Last compare, and the decision
-
-```powershell
-node tools/workflow-usage.mjs compare course/baseline/workflow.json course/work/workflow.json
-```
-
-Recommend ship, revise, or reject in one or two sentences. Ship only if the cost fell and the necessary checks are still in the skills. Revise if a check was dropped. Reject if the rewrite costs more, or the criteria are no longer in the call.
-
-Open `course/reference/` only after that recommendation. Use it to mark, not to replace the delegate's files during the lab.
-
-In the debrief, each delegate answers one of these:
-
-- Which file did you keep even though a shorter file estimated cheaper?
-- Which stage moved because you changed the prompt rather than the skill?
-- Which cut would have come back as a missing check, a missing audit row, or another call?
-
-## When a separate application repository is in the room
-
-Same two moves. Point the workflow at that repository.
-
-1. Copy `course/optimised/` to a folder of your own at the same depth.
-2. Change each `path` in its `workflow.json` so it lands on that application's `.github/` instructions, skills, and agents. Paths are relative to the workflow file.
-3. Amend the skill for one stage, run the compare, and read that stage before opening the next.
-4. Keep a baseline workflow that points at the unedited `.github/` as the inherited measurement.
-
-## A live Copilot call against the app
-
-Copilot reads `.github/` from the root of the open workspace. Open the `demo` folder itself, rather than the course repository, and it sees the inherited setup. Work on a copy so the files the baseline measures stay as they are. Run this from `demo/`:
-
-```powershell
-$live = "$env:TEMP/serviceflow-live"
-New-Item -ItemType Directory -Force $live | Out-Null
-Copy-Item -Recurse -Force (Get-ChildItem -Force -Exclude .git) $live
-Copy-Item -Recurse -Force course/optimised/skills/* "$live/.github/skills/"
-Copy-Item -Recurse course/optimised/instructions "$live/.github/instructions"
-Remove-Item -Recurse "$live/.github/skills/feature-development", "$live/.github/agents/developer.agent.md"
-cd $live
-git init
-code .
-```
-
-Skip the two skill copies and the `Remove-Item` to call the inherited setup instead. "Leave unused" becomes a deletion in the live copy, because Copilot can pick up any skill whose description matches. After the call, `npm test` in that copy shows whether the auth and validation tests survived. For SR-263, run the same copy from the `lab/` folder and copy in the skills from `course/work/`.
-
-## Copilot CLI, when it is installed
-
-Start it inside the app copy above. Use it after the amendment, on the stage you just changed.
-
-1. Run `/context` and read the first line.
-2. After a call, run `/usage`.
-3. If `/usage` is higher than the file estimate, the difference is the real cost of that call. The estimate does not see tool calls until they are recorded.
+2. The next 40 minutes are SR-263, in the `lab/` folder. Hand delegates `lab/` and point them at `lab/course/LAB.md`. `lab/course/reference/` stays closed until a delegate has finished.
+3. Stop the server with Ctrl+C.
 
 ## Trainer key for the demo (SR-142)
 
-Use this to unblock the demo. The lab key is `lab/course/reference/KEY.md`. Do not show that file during the 40 minutes.
+Use this to unblock the demo.
 
 | Asset | Decision | Why |
 | --- | --- | --- |
@@ -249,6 +180,96 @@ Use this to unblock the demo. The lab key is `lab/course/reference/KEY.md`. Do n
 | `reviewer` agent | Retain | It reviews the diff and refuses a whole-repository tour. |
 | `priority.instructions.md` | Add, path-scoped | The allowed values and badge tones belong next to the files they affect, not in the always-on instructions. |
 
+The lab's trainer key is `lab/course/reference/KEY.md`. Do not put it on screen during the lab.
+
+## Live Copilot call against the app
+
+Copilot reads `.github/` from the root of the open workspace. Work on a copy so the files the baseline measures stay as they are. Run this from `demo/`:
+
+```powershell
+$live = "$env:TEMP/serviceflow-live"
+New-Item -ItemType Directory -Force $live | Out-Null
+Copy-Item -Recurse -Force (Get-ChildItem -Force -Exclude .git) $live
+Copy-Item -Recurse -Force course/optimised/skills/* "$live/.github/skills/"
+Copy-Item -Recurse course/optimised/instructions "$live/.github/instructions"
+Remove-Item -Recurse "$live/.github/skills/feature-development", "$live/.github/agents/developer.agent.md"
+cd $live
+git init
+code .
+```
+
+Skip the two skill copies and the `Remove-Item` to call the inherited setup instead. "Leave unused" becomes a deletion in the live copy, because Copilot can pick up any skill whose description matches. After the call, `npm test` in that copy shows whether the auth and validation tests survived.
+
+## Copilot CLI, when it is installed
+
+Start it inside the app copy above. Use it after the amendment, on the stage you just changed.
+
+1. Run `/context` and read the first line.
+2. After a call, run `/usage`.
+3. If `/usage` is higher than the file estimate, the difference is the real cost of that call. The estimate does not see tool calls until they are recorded.
+
+## A separate application repository
+
+Same two moves. Point the workflow at that repository.
+
+1. Copy `course/optimised/` to a folder of your own at the same depth.
+2. Change each `path` in its `workflow.json` so it lands on that application's `.github/` instructions, skills, and agents. Paths are relative to the workflow file.
+3. Amend the skill for one stage, run the compare, and read that stage before opening the next.
+4. Keep a baseline workflow that points at the unedited `.github/` as the inherited measurement.
+
+## Your own workflow
+
+```json
+{
+  "feature": "SR-142: Add request priority management",
+  "label": "Challenge",
+  "model": "gpt-5.3-codex",
+  "stages": [
+    {
+      "id": "implementation",
+      "name": "Implementation",
+      "files": [
+        { "path": "../../app/.github/copilot-instructions.md", "role": "always-on", "cache": "stable" },
+        { "path": "../../app/.github/skills/api-development/SKILL.md", "role": "on-demand", "cache": "fresh" },
+        { "path": "prompts/implementation.md", "role": "prompt", "cache": "fresh" }
+      ],
+      "outputTokens": 800,
+      "effectiveness": {
+        "completedCorrectly": "unknown",
+        "correctiveInteractions": 0,
+        "acceptanceCriteriaMet": "unknown",
+        "necessaryChecksRetained": "yes",
+        "notes": ""
+      }
+    }
+  ]
+}
+```
+
+`cache` is `stable` or `fresh`. `role` is `always-on`, `path-scoped`, `on-demand`, `prompt`, or `requirements`. Use `outputFile` or `outputTokens`, not both. Set `outputKind` to `example-reply` when the output file is a draft rather than an observed response.
+
+An observed reading sits beside the estimate:
+
+```json
+"observed": {
+  "inputTokens": 1400,
+  "cachedInputTokens": 600,
+  "cacheWriteTokens": 0,
+  "outputTokens": 900,
+  "source": "Copilot CLI /usage"
+}
+```
+
+To record a follow-up call:
+
+```json
+"retries": [
+  { "reason": "Validation was missing from the first reply", "inputTokens": 900, "outputTokens": 400 }
+]
+```
+
+Add `"illustrative": true` when the number is a teaching figure rather than a reading.
+
 ## Timing card
 
 | Minutes | Who | What they do |
@@ -259,10 +280,8 @@ Use this to unblock the demo. The lab key is `lab/course/reference/KEY.md`. Do n
 | 26–32 | Trainer | SR-142 is the spec. Show the catch-all skill. |
 | 32–40 | Trainer | Planning: amend the skill, read the difference. |
 | 40–50 | Trainer | Skill refinement, including the too-short file. |
-| 50–62 | Trainer | Implementation, then the badge sentence. |
+| 50–62 | Trainer | Implementation, then the live badge sentence at minute 58. |
 | 62–70 | Trainer | Testing and review. A dropped test is not a saving. |
 | 70–76 | Trainer | Release. The release skill stays. The prompt changes. |
-| 76–80 | Trainer | All stages, then hand over to SR-263. |
-| 80–88 | Delegates | Run the lab app's tests. Read SR-263. Copy the baseline. |
-| 88–112 | Delegates | Amend each stage, then read that stage. |
-| 112–120 | Delegates | Last compare. Ship, revise, or reject. |
+| 76–80 | Trainer | All stages, then hand over to SR-263 in `lab/`. |
+| 80–120 | Delegates | In `lab/`, following `lab/course/LAB.md`. |

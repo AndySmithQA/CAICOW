@@ -1,14 +1,22 @@
 # Trainer demo: SR-142
 
-This folder is the whole demo. The app is here, the inherited Copilot instructions, skills, and agents are in `.github/`, the request and the amended skills are in `course/`, and the measurement tools are in `tools/`. Leave `.github/` unchanged during the demo. The baseline workflow measures it.
+This is the trainer package. It holds the whole SR-142 demo: the ServiceFlow app, the inherited Copilot instructions, skills, and agents in `.github/`, the request and the amended skills in `course/`, the measurement tools in `tools/`, and the trainer documents.
+
+Do not hand this folder to delegates. They work in `lab/`. This folder contains the SR-142 answers in `course/optimised/`.
+
+| File | What it is |
+| --- | --- |
+| `SLIDES.md` | The slide deck, 0 to 24. Each stage slide has an app anchor. |
+| `WALKTHROUGH.md` | What to say at each stage, the trainer key, and the timing card. |
+| `INSTRUCTIONS.md` | The click-by-click for the 80 minutes, including the one live edit at minute 58. |
+
+Leave `.github/` unchanged during the demo. The baseline workflow measures it.
 
 ```powershell
 npm test
 npm start
 node tools/workflow-usage.mjs compare course/baseline/workflow.json course/optimised/workflow.json
 ```
-
-The spoken script for the two-hour course is `../WALKTHROUGH.md` when this folder is inside the course repository. Hand this folder out on its own and the commands above still run.
 
 # ServiceFlow
 
@@ -47,5 +55,5 @@ A request has an id, title, owner, status, and created date. Status is Open, In 
 | `src/ui/requests/` | The create and edit form. |
 | `test/` | `auth`, `validation`, `requests`, and `dashboard` tests. |
 | `.github/` | Copilot instructions, skills, and agents, plus the CI workflow. Leave this as the baseline. |
-| `course/` | SR-142, the prompts, the amended skills, and the workflow files. |
+| `course/` | SR-142, the baseline and optimised workflows, the prompts, the amended skills, and the trap file. |
 | `tools/` | The token estimate and the workflow compare. |
