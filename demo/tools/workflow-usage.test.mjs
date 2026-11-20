@@ -4,9 +4,9 @@ import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { test } from "node:test";
-import { estimateText } from "../tools/lib/estimate.mjs";
-import { modelById, priceTokens } from "../tools/lib/rates.mjs";
-import { analyseFile, compareFiles, qualityOf } from "../tools/lib/workflow.mjs";
+import { estimateText } from "./lib/estimate.mjs";
+import { modelById, priceTokens } from "./lib/rates.mjs";
+import { analyseFile, compareFiles, qualityOf } from "./lib/workflow.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const cli = path.join(root, "tools", "workflow-usage.mjs");
@@ -166,8 +166,8 @@ test("estimate-tokens.mjs keeps the lab table and the two-file ratio", () => {
 
 test("SR-142 challenge sends less context at every stage and leaves the catch-all skill out", () => {
   const report = compareFiles(
-    path.join(root, "examples", "sr-142", "baseline", "workflow.json"),
-    path.join(root, "examples", "sr-142", "optimised", "workflow.json"),
+    path.join(root, "course", "baseline", "workflow.json"),
+    path.join(root, "course", "optimised", "workflow.json"),
   );
   assert.equal(report.feature, "SR-142: Add request priority management");
   assert.ok(report.illustrativeRetries);
@@ -190,15 +190,25 @@ test("SR-142 challenge sends less context at every stage and leaves the catch-al
 });
 
 test("the focused API skill sits between the one-line trap and the bloated skill", () => {
-  const trap = estimateText(readFileSync(path.join(root, "examples", "sr-142", "traps", "api-too-short.md"), "utf8")).tokens;
+  const trap = estimateText(readFileSync(path.join(root, "course", "traps", "api-too-short.md"), "utf8")).tokens;
   const focused = estimateText(
-    readFileSync(path.join(root, "examples", "sr-142", "optimised", "skills", "api-development", "SKILL.md"), "utf8"),
+    readFileSync(path.join(root, "course", "optimised", "skills", "api-development", "SKILL.md"), "utf8"),
   ).tokens;
   const bloated = estimateText(
-    readFileSync(path.join(root, "examples", "sr-142", "baseline", "skills", "api-development", "SKILL.md"), "utf8"),
+    readFileSync(path.join(root, ".github", "skills", "api-development", "SKILL.md"), "utf8"),
   ).tokens;
   assert.ok(trap < focused);
   assert.ok(focused < bloated);
+});
+
+test("the inherited workflow loads this app's .github files, and the priority instructions are not already in the app", () => {
+  const report = analyseFile(path.join(root, "course", "baseline", "workflow.json"));
+  for (const stage of report.stages) {
+    for (const file of stage.files.filter((entry) => !["prompt", "requirements"].includes(entry.role))) {
+      assert.ok(file.path.startsWith("../../.github/"), `${stage.name}: ${file.path}`);
+    }
+  }
+  assert.throws(() => readFileSync(path.join(root, ".github", "instructions", "priority.instructions.md")));
 });
 
 test("a missing file fails before a report is printed", () => {

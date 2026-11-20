@@ -1,0 +1,14 @@
+{
+  "name": "serviceflow",
+  "version": "2.1.0",
+  "private": true,
+  "description": "Internal service-request app.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/server.mjs",
+    "test": "node --test"
+  }
+}

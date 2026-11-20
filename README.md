@@ -1,10 +1,25 @@
-# Token usage toolkit
+# Cut AI costs by optimising engineering workflows
 
-Measurement toolkit for a two-hour GitHub Copilot course. The trainer spends the first 26 minutes on the workflow language and the engineer's job: tune the skills to the spec before the process runs. The rest of the first 80 minutes is SR-142, one stage at a time. Delegates spend 40 minutes doing the same job on SR-263. The run of show is in `WALKTHROUGH.md`.
+A two-hour GitHub Copilot course. The trainer spends the first 26 minutes on the workflow language and the engineer's job: tune the skills to the spec before the process runs. The rest of the first 80 minutes is SR-142, one stage at a time. Delegates spend 40 minutes doing the same job on SR-263. The run of show is in `WALKTHROUGH.md`. The step-by-step is in `INSTRUCTIONS.md`. The slides are in `SLIDES.md`.
 
-It extends the [Token Delegate Lab](https://github.com/AndySmithQA/Token-delegate-lab). The 30-minute lab's estimator is here as `tools/estimate-tokens.mjs`: about 4 characters per token, for comparing two files. This folder adds the workflow compare, which prices a feature from planning through to release.
+The course is two folders. Each one is a complete package: the ServiceFlow app, its inherited Copilot setup in `.github/`, the course files in `course/`, and the measurement tools in `tools/`. Open one folder and everything for that half of the course is inside it.
 
-The application the class changes, such as a service-request codebase, stays in its own repository. Point the workflow files at that repository's instructions, skills, agents, and prompts.
+| Folder | Who opens it | What is inside |
+| --- | --- | --- |
+| `demo/` | Trainer | ServiceFlow before SR-142, the inherited skills and agents, and `course/` with the amended skills. |
+| `lab/` | Delegates | ServiceFlow a few releases later, before SR-263. Priority, approval, comments, and an audit table have shipped. `course/LAB.md` is the brief. `course/reference/` is the trainer key and stays closed during the lab. |
+
+Neither folder needs an install. Node.js 20 or newer.
+
+```powershell
+cd demo
+npm test
+npm start
+```
+
+`npm start` serves that folder's app on http://localhost:3000. Leave `.github/` unedited during the course. The baseline workflow measures it, and amendments go in `course/`. To use the tools on your own application, point a workflow file at that repository's instructions, skills, agents, and prompts.
+
+The measurement tool extends the [Token Delegate Lab](https://github.com/AndySmithQA/Token-delegate-lab). `tools/estimate-tokens.mjs` compares two files at about 4 characters per token. `tools/workflow-usage.mjs` prices a feature from planning through to release. Each folder has its own copy, so the demo and the lab can be handed out separately.
 
 ## What a delegate measures
 
@@ -28,10 +43,12 @@ A shorter file is not automatically a better workflow. The report keeps a qualit
 
 Node.js 20 or newer. No install.
 
-```powershell
-node tools/estimate-tokens.mjs examples/sr-142/baseline/skills/api-development/SKILL.md examples/sr-142/optimised/skills/api-development/SKILL.md
+From the `demo/` folder:
 
-node tools/workflow-usage.mjs compare examples/sr-142/baseline/workflow.json examples/sr-142/optimised/workflow.json
+```powershell
+node tools/estimate-tokens.mjs .github/skills/api-development/SKILL.md course/optimised/skills/api-development/SKILL.md
+
+node tools/workflow-usage.mjs compare course/baseline/workflow.json course/optimised/workflow.json
 ```
 
 `--model` reprices both sides with the same model. `node tools/workflow-usage.mjs models` lists the rates bundled for the lab. `--strict` exits with an error when a stage says necessary checks were removed, acceptance criteria were missed, or the task was not completed.
@@ -61,15 +78,15 @@ Before each Copilot call: what is being asked, which skill or agent is loaded, w
 
 ## Sample: SR-142
 
-The sample feature is request priority on an inherited service desk. The baseline workflow loads a catch-all feature-development skill at every stage. The challenge workflow leaves that skill out and loads one focused skill per stage.
+The sample feature is request priority, in the `demo/` folder. The baseline workflow loads the app's catch-all feature-development skill at every stage. The challenge workflow leaves that skill out and loads one focused skill per stage.
 
-The focused API skill is longer than `examples/sr-142/traps/api-too-short.md` and shorter than the inherited API skill. The one-line file estimates smaller. It also leaves out validation, the allowed values, and the tests to keep, so the follow-up calls are the expensive part. Record those calls as retries rather than treating the short file as the win.
+The focused API skill is longer than `demo/course/traps/api-too-short.md` and shorter than the inherited API skill. The one-line file estimates smaller. It also leaves out validation, the allowed values, and the tests to keep, so the follow-up calls are the expensive part. Record those calls as retries rather than treating the short file as the win.
 
 The baseline testing stage includes an illustrative retry. The report labels it. Replace it with a `/usage` reading before quoting the result.
 
 Example replies under `outputs/` are there so the sample has an output estimate. They are not live Copilot responses.
 
-The delegate lab is a second feature, `examples/sr-263/`. Same five stages, harder choices. The brief is `examples/sr-263/LAB.md`. The trainer key is `examples/sr-263/reference/KEY.md`.
+The delegate lab is the `lab/` folder. Same five stages, harder choices. Delegates copy `course/baseline/` to `course/work/` and amend there. The brief is `lab/course/LAB.md`. The trainer key is `lab/course/reference/KEY.md`.
 
 ## Your own workflow
 
@@ -129,5 +146,11 @@ Add `"illustrative": true` when the number is a teaching figure rather than a re
 ## Tests
 
 ```powershell
-node --test
+cd demo
+npm test
+
+cd ..\lab
+npm test
 ```
+
+`npm test` in a folder runs that app's suite and that folder's measurement tests. It is the command the app's `.github/workflows/ci.yml` runs.

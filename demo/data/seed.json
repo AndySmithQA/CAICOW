@@ -1,0 +1,16 @@
+{
+  "users": [
+    { "id": "amira", "name": "Amira Khan", "role": "staff" },
+    { "id": "ben", "name": "Ben Ortiz", "role": "staff" },
+    { "id": "chloe", "name": "Chloe Martin", "role": "staff" },
+    { "id": "dev", "name": "Dev Patel", "role": "requester" }
+  ],
+  "requests": [
+    { "id": "REQ-1001", "title": "Laptop will not join the VPN", "owner": "ben", "status": "Open", "createdAt": "2026-10-02T09:14:00.000Z" },
+    { "id": "REQ-1002", "title": "New starter needs a building pass", "owner": "amira", "status": "In progress", "createdAt": "2026-10-06T11:40:00.000Z" },
+    { "id": "REQ-1003", "title": "Printer on floor 3 jams on duplex", "owner": "chloe", "status": "Resolved", "createdAt": "2026-10-09T15:02:00.000Z" },
+    { "id": "REQ-1004", "title": "Shared drive quota warning", "owner": "ben", "status": "Open", "createdAt": "2026-10-21T08:30:00.000Z" },
+    { "id": "REQ-1005", "title": "Reset MFA for a returning contractor", "owner": "amira", "status": "In progress", "createdAt": "2026-11-03T13:55:00.000Z" },
+    { "id": "REQ-1006", "title": "Meeting room screen has no signal", "owner": null, "status": "Open", "createdAt": "2026-11-12T10:05:00.000Z" }
+  ]
+}

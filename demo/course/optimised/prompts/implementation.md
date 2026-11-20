@@ -1,1 +1,1 @@
-Add priority to the request API and the form. Use the API skill and the React skill. Validate Low, Medium, and High in the service. Default existing rows to Medium. Badge tones come from the path-scoped priority instructions. Run the request create and update tests.
+Add priority to the request API and the form. Use the API skill and the UI components skill. Validate Low, Medium, and High in the service. Default existing rows to Medium. Badge tones come from the path-scoped priority instructions. Run the request create and update tests.

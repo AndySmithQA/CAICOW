@@ -22,8 +22,8 @@ Build rules for every slide:
   2. Skills and agents already in place, ready to be used again.
   3. A new request, which those skills were not written for.
   Closing line: Reuse is the goal. Running them as they stand is not the first move.
-- **Visual:** The application, the skill files attached to it, and a request card that has not been started.
-- **Speaker:** We are not starting from an empty repository. The skills exist so the next change can reuse them. The job in this room is to decide whether those tools fit this request before anyone runs the workflow.
+- **Visual:** A screenshot of the ServiceFlow dashboard from the `demo` folder, with its `.github/` folder tree beside it (always-on instructions, seven skills, two agents) and an SR-142 request card that has not been started.
+- **Speaker:** Switch to the running app for a few seconds, then back. We are not starting from an empty repository. The skills exist so the next change can reuse them. The job in this room is to decide whether those tools fit this request before anyone runs the workflow.
 - **Interaction:** Chat. Would you run the request on the skills already in the repo, or read them first?
 - **Leave off:** SR-142's criteria. Token figures. The stage-by-stage edits.
 
@@ -91,7 +91,7 @@ Build rules for every slide:
 
 ## Slide 7 — A request has arrived
 
-- **On screen:** 0:26–0:32. Leave it up while `examples/sr-142/shared/sr-142.md` is read.
+- **On screen:** 0:26–0:32. Leave it up while `course/sr-142.md` is read.
 - **Purpose:** Turn the language into this spec.
 - **On-slide copy:** SR-142, add request priority. Low, Medium, and High. Selectable on create and edit. Validated and stored. Filterable on the dashboard. Existing requests default to Medium. Tests and CI.
 - **Visual:** The criteria as the spec. A caption: which skill can carry this out?
@@ -104,7 +104,7 @@ Build rules for every slide:
 - **Purpose:** Bound the stage before showing its cost.
 - **On-slide copy:** This call produces a plan for a one-field change. It does not implement the API, write the tests, or write the release notes.
 - **Visual:** The stage name, and a single line quoted from the acceptance criteria: existing requests default to Medium.
-- **Speaker:** Open `examples/sr-142/baseline/prompts/planning.md` and read it. Ask the room which sentence asks for work this stage should not do.
+- **Speaker:** Open `course/baseline/prompts/planning.md` and read it. Ask the room which sentence asks for work this stage should not do.
 - **Interaction:** Chat. One sentence from the prompt that does not belong in a plan.
 - **Leave off:** The rewritten prompt.
 
@@ -114,7 +114,7 @@ Build rules for every slide:
 - **Purpose:** Show the inherited cost and the edit.
 - **On-slide copy:** Inherited call loads the planning skill and the catch-all skill, and it asks for a repository survey. Rewrite: plan the priority field only. Leave the catch-all skill unused on this call.
 - **Visual:** Two file names, inherited and rewritten. Three words under the rewritten file: field, default, tests to extend.
-- **Speaker:** Read the Planning block. File context is about 1,446 inherited. Run `estimate-tokens.mjs` on the two planning skills. Then show the rewritten skill. Do not open the other stages.
+- **Speaker:** Read the Planning block. File context is about 1,448 inherited. Run `estimate-tokens.mjs` on the two planning skills. Then show the rewritten skill. Do not open the other stages.
 - **Leave off:** The full skill text on the slide. The later-stage totals.
 
 ## Slide 10 — Planning: follow through
@@ -141,7 +141,7 @@ Build rules for every slide:
 - **Purpose:** Make the decision vocabulary stick.
 - **On-slide copy:** Three labels only: Retain. Modify. Leave unused. One line under them: a skill that does not match this request is left on disk, not loaded.
 - **Visual:** Three columns. The trainer fills one asset per column out loud. Do not pre-fill the columns on the slide.
-- **Speaker:** Walk the trainer key in the walkthrough only as far as the room needs to get unstuck. The decisions to say if the chat stalls: leave `feature-development` and the developer agent unused; modify planning, API, and test generation; retain React, code review, release, and the reviewer agent.
+- **Speaker:** Walk the trainer key in the walkthrough only as far as the room needs to get unstuck. The decisions to say if the chat stalls: leave `feature-development` and the developer agent unused; modify planning, API, and test generation; retain UI components, code review, release, and the reviewer agent.
 - **Interaction:** Chat. One asset, and one of the three labels, with a reason from the file.
 - **Leave off:** A completed answer key on the slide itself.
 
@@ -151,7 +151,7 @@ Build rules for every slide:
 - **Purpose:** Stop "smallest estimate" being the rewrite.
 - **On-slide copy:** The one-line skill estimates smaller than the focused API skill. It also drops validation, the allowed values, and the tests to keep. The follow-up call is the expensive part. Record it as a retry.
 - **Visual:** Three files in a row: inherited API skill, one-line trap, focused API skill. The trap is visibly the shortest. A caption: shortest is not the result.
-- **Speaker:** Run the two `estimate-tokens.mjs` commands from the walkthrough. Open `examples/sr-142/traps/api-too-short.md` and the focused skill. Read the lines the trap does not have.
+- **Speaker:** Run the two `estimate-tokens.mjs` commands from the walkthrough. Open `course/traps/api-too-short.md` and the focused skill. Read the lines the trap does not have.
 - **Leave off:** A claim that the focused skill is the minimum possible length.
 
 ## Slide 14 — Implementation: what this call may do
@@ -168,7 +168,7 @@ Build rules for every slide:
 
 - **On screen:** 0:54–0:58.
 - **Purpose:** Show the rewrite of the call, not a new feature.
-- **On-slide copy:** Leave the catch-all skill and the developer agent unused. Keep the React skill. Load the rewritten API skill. Add the priority instructions as path-scoped, next to the files they affect.
+- **On-slide copy:** Leave the catch-all skill and the developer agent unused. Keep the UI components skill. Load the rewritten API skill. Add the priority instructions as path-scoped, next to the files they affect.
 - **Visual:** A before/after file list for this stage only. Path-scoped is a label on one file, not a new stage.
 - **Speaker:** Read the Implementation block of the report before and after. Show `priority.instructions.md` and say why it is not in the always-on instructions.
 - **Leave off:** The whole-workflow percentage.
@@ -215,7 +215,7 @@ Build rules for every slide:
 - **On screen:** 1:14–1:16.
 - **Purpose:** Explain the gap between the two headlines.
 - **On-slide copy:** Credits move further than tokens when output and retries shrink, because those buckets cost more than cached input. Changing the model changes the credits and leaves the token count where it is.
-- **Visual:** Two headlines with blank numbers, labelled Tokens and Credits. The speaker writes the SR-142 figures in the notes, not as a baked-in image: about 11,735 against 4,197 tokens (64.2% fewer), about 3.49 credits against 0.83 (76.1% fewer).
+- **Visual:** Two headlines with blank numbers, labelled Tokens and Credits. The speaker writes the SR-142 figures in the notes, not as a baked-in image: about 11,744 against 4,204 tokens (64.2% fewer), about 3.49 credits against 0.84 (76.0% fewer).
 - **Speaker:** Say those figures only after every stage has been amended on screen. Read them from the **All stages** block of the compare.
 - **Leave off:** A ranking of models. A recommendation to switch model as the optimisation.
 
@@ -225,7 +225,7 @@ Build rules for every slide:
 - **Purpose:** Hand the job to the room before the lab.
 - **On-slide copy:** The skills were already there. We updated them to this spec before the process ran. That is how they become reusable. SR-142 is finished. The lab is a different spec, and the same job.
 - **Visual:** The four steps from slide 6, with SR-263 named as the next spec. No hint of its answer.
-- **Speaker:** The job is knowing how to go about the fix: read the spec, amend the skill, see the difference, then run. Baseline files stay read-only. Edits go in `my-workflow.json`. The reference folder stays closed until the delegate has made a recommendation.
+- **Speaker:** The job is knowing how to go about the fix: read the spec, amend the skill, see the difference, then run. Baseline files and the app's `.github/` stay read-only. Edits go in `course/work/`, a copy of the baseline folder. The reference folder stays closed until the delegate has made a recommendation.
 - **Leave off:** SR-263's skill decisions. The trap files.
 
 ## Slide 22 — Your request is SR-263
@@ -234,7 +234,7 @@ Build rules for every slide:
 - **Purpose:** Start the lab on a feature they have not watched you solve.
 - **On-slide copy:** Reopen a resolved request with a reason. Only Resolved can be reopened. The reporter or the assignee may do it. The reason has at least 15 characters and is stored through the existing comment API. Status becomes Open. Priority is unchanged. One audit row: who, when, and the comment id. Existing resolve tests and comment tests stay.
 - **Visual:** The criteria as a list. A footer: same five stages. Amend the skill, then see the difference.
-- **Speaker:** Point at `examples/sr-263/LAB.md`. Tell them the complication is in the feature file and they should read it before Implementation. Do not explain how to satisfy it.
+- **Speaker:** Point at `lab/course/LAB.md`. Tell them the complication is in the feature file and they should read it before Implementation. Do not explain how to satisfy it.
 - **Leave off:** Which skill to delete. The word "catalog." The traps folder. Any reference-workflow number.
 
 ## Slide 23 — What you will hand in

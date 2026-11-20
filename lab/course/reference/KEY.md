@@ -4,8 +4,10 @@ Open this after the delegate has made a recommendation. A delegate workflow can 
 
 Figures below are the reference compared with the baseline on GPT-5.3-Codex, as file estimates. Re-run the command if a file has been edited.
 
+Run this from the `lab/` folder:
+
 ```powershell
-node tools/workflow-usage.mjs compare examples/sr-263/baseline/workflow.json examples/sr-263/reference/workflow.json
+node tools/workflow-usage.mjs compare course/baseline/workflow.json course/reference/workflow.json
 ```
 
 About **14,571** baseline tokens against **5,373** reference tokens (**63.1% fewer**). About **3.31** credits against **1.00** (**69.8% fewer**). File context about **11,663** against **5,030**. The implementation gap is the large one: the baseline includes an illustrative retry of 1,800 input and 700 output because the reopen skill and the comment skill disagree. It is not a `/usage` reading.
@@ -30,7 +32,7 @@ About **14,571** baseline tokens against **5,373** reference tokens (**63.1% few
 | `release-preparation` | Retain | The skill is already a short note and a local CI result. |
 | Release prompt | Modify | The inherited prompt asks for the route catalog, a rollback plan, and a threat model. The skill is not where that cost sits. |
 | Route catalog in `copilot-instructions.md` | Remove from always-on | The rules at the top stay. The catalog is stable, so the full price is on the first stage and later stages pay the cached rate. Deleting the rules to delete the catalog is a failed cut. |
-| `reopen.instructions.md` | Add, path-scoped, on implementation | Audience `requester` and the 15-character reason sit next to the route. They do not go into the always-on file, and the comment skill is not rewritten to change its default. |
+| `instructions/reopen.instructions.md` | Add, path-scoped, on implementation | Audience `requester` and the 15-character reason sit next to the route. They do not go into the always-on file, and the comment skill is not rewritten to change its default. |
 
 ## What a strong lab looks like
 
@@ -41,6 +43,19 @@ About **14,571** baseline tokens against **5,373** reference tokens (**63.1% few
 - The release skill path is unchanged and the release prompt is shorter.
 - Necessary checks are Yes only because the resolve tests and the comment tests remain.
 - The illustrative retry is gone because the two skills no longer disagree. A real retry, if one happened, is still in the report.
+
+## If a delegate ran implementation live
+
+The change fits inside the existing request service. A correct reply adds a `reopen` method to `src/api/requests/service.mjs` and one route to `routes.mjs`, roughly 15 lines:
+
+- the caller is the reporter or the owner, or 403
+- anything but Resolved is a 409
+- a reason under 15 characters is a 400
+- `comments.add(id, { body: reason, audience: "requester" }, actor)` stores the reason
+- status moves to Open through the existing history transition, and priority is left alone
+- `audit.append({ requestId: id, action: "reopen", actor, subjectId: comment.id })` writes the row
+
+There is no new table, and `DEFAULT_AUDIENCE` in `comments.mjs` is still `staff`. `npm test` still runs `resolve.test.mjs` and `comments.test.mjs` unchanged, and they pass.
 
 ## False savings to mark down
 

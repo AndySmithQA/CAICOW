@@ -1,0 +1,124 @@
+{
+  "users": [
+    { "id": "amira", "name": "Amira Khan", "role": "staff" },
+    { "id": "ben", "name": "Ben Ortiz", "role": "staff" },
+    { "id": "chloe", "name": "Chloe Martin", "role": "staff" },
+    { "id": "dev", "name": "Dev Patel", "role": "requester" },
+    { "id": "erin", "name": "Erin Walsh", "role": "requester" }
+  ],
+  "requests": [
+    {
+      "id": "REQ-2001",
+      "title": "Laptop will not join the VPN",
+      "reporter": "dev",
+      "owner": "ben",
+      "status": "Resolved",
+      "priority": "High",
+      "createdAt": "2026-10-02T09:14:00.000Z",
+      "history": [
+        { "status": "Open", "at": "2026-10-02T09:14:00.000Z", "by": "dev" },
+        { "status": "Resolved", "at": "2026-10-04T16:20:00.000Z", "by": "ben" }
+      ]
+    },
+    {
+      "id": "REQ-2002",
+      "title": "New starter needs a building pass",
+      "reporter": "erin",
+      "owner": "amira",
+      "status": "Pending approval",
+      "priority": "Medium",
+      "createdAt": "2026-10-06T11:40:00.000Z",
+      "history": [{ "status": "Pending approval", "at": "2026-10-06T11:40:00.000Z", "by": "erin" }]
+    },
+    {
+      "id": "REQ-2003",
+      "title": "Printer on floor 3 jams on duplex",
+      "reporter": "dev",
+      "owner": "chloe",
+      "status": "Resolved",
+      "createdAt": "2026-10-09T15:02:00.000Z",
+      "history": [
+        { "status": "Open", "at": "2026-10-09T15:02:00.000Z", "by": "dev" },
+        { "status": "Resolved", "at": "2026-10-10T10:45:00.000Z", "by": "chloe" }
+      ]
+    },
+    {
+      "id": "REQ-2004",
+      "title": "Shared drive quota warning",
+      "reporter": "erin",
+      "owner": "ben",
+      "status": "Open",
+      "priority": "Low",
+      "createdAt": "2026-10-21T08:30:00.000Z",
+      "history": [{ "status": "Open", "at": "2026-10-21T08:30:00.000Z", "by": "erin" }]
+    },
+    {
+      "id": "REQ-2005",
+      "title": "Reset MFA for a returning contractor",
+      "reporter": "dev",
+      "owner": "amira",
+      "status": "Open",
+      "priority": "High",
+      "createdAt": "2026-11-03T13:55:00.000Z",
+      "history": [
+        { "status": "Pending approval", "at": "2026-11-03T13:55:00.000Z", "by": "dev" },
+        { "status": "Open", "at": "2026-11-04T09:10:00.000Z", "by": "amira" }
+      ]
+    },
+    {
+      "id": "REQ-2006",
+      "title": "Order a standing desk",
+      "reporter": "erin",
+      "owner": null,
+      "status": "Pending approval",
+      "priority": "Low",
+      "createdAt": "2026-11-10T14:25:00.000Z",
+      "history": [{ "status": "Pending approval", "at": "2026-11-10T14:25:00.000Z", "by": "erin" }]
+    },
+    {
+      "id": "REQ-2007",
+      "title": "Meeting room screen has no signal",
+      "reporter": "dev",
+      "owner": "chloe",
+      "status": "Resolved",
+      "priority": "Medium",
+      "createdAt": "2026-11-12T10:05:00.000Z",
+      "history": [
+        { "status": "Open", "at": "2026-11-12T10:05:00.000Z", "by": "dev" },
+        { "status": "Resolved", "at": "2026-11-13T12:00:00.000Z", "by": "chloe" }
+      ]
+    }
+  ],
+  "comments": [
+    {
+      "id": "CMT-1001",
+      "requestId": "REQ-2001",
+      "author": "ben",
+      "body": "Reissued the VPN certificate for this laptop.",
+      "audience": "staff",
+      "createdAt": "2026-10-04T16:15:00.000Z"
+    },
+    {
+      "id": "CMT-1002",
+      "requestId": "REQ-2001",
+      "author": "ben",
+      "body": "Fixed. Restart the laptop and reconnect to the VPN.",
+      "audience": "requester",
+      "createdAt": "2026-10-04T16:18:00.000Z"
+    },
+    {
+      "id": "CMT-1003",
+      "requestId": "REQ-2003",
+      "author": "chloe",
+      "body": "Replaced the duplex roller.",
+      "audience": "staff",
+      "createdAt": "2026-10-10T10:40:00.000Z"
+    }
+  ],
+  "audit": [
+    { "id": "AUD-1001", "requestId": "REQ-2001", "action": "resolve", "actor": "ben", "timestamp": "2026-10-04T16:20:00.000Z", "subjectId": "REQ-2001" },
+    { "id": "AUD-1002", "requestId": "REQ-2003", "action": "resolve", "actor": "chloe", "timestamp": "2026-10-10T10:45:00.000Z", "subjectId": "REQ-2003" },
+    { "id": "AUD-1003", "requestId": "REQ-2005", "action": "approve", "actor": "amira", "timestamp": "2026-11-04T09:10:00.000Z", "subjectId": "REQ-2005" },
+    { "id": "AUD-1004", "requestId": "REQ-2007", "action": "resolve", "actor": "chloe", "timestamp": "2026-11-13T12:00:00.000Z", "subjectId": "REQ-2007" }
+  ]
+}

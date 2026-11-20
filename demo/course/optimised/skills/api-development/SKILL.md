@@ -11,4 +11,4 @@ Priority is Low, Medium, or High. Reject any other value in the service before p
 
 Do not review unrelated routes. Do not generate a new test suite. Extend the tests that already create and update a request, and keep the current authentication and validation tests in the run.
 
-The dashboard filter and the badge are separate UI work. Name them in the plan, and leave the component edit to the React skill.
+The dashboard filter and the badge are separate UI work. Name them in the plan, and leave the component edit to the UI components skill.

@@ -13,4 +13,4 @@ When you implement, treat the feature as a vertical slice that also refreshes ne
 
 Do not assume the application already has a validation pattern. Discover it by reading the code, then describe it back in full before editing. Include example payloads for every route, not only the route you are changing.
 
-The same skill covers the React client. After the API work, review the component tree and propose the UI changes in the same answer, with a fresh restatement of the architecture.
+The same skill covers the dashboard UI. After the API work, review the component tree and propose the UI changes in the same answer, with a fresh restatement of the architecture.

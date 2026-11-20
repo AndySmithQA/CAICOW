@@ -1,9 +1,9 @@
 ---
-name: react-components
-description: Use when changing a ServiceFlow React view that already has a design-system component.
+name: ui-components
+description: Use when changing a ServiceFlow dashboard view that already has a design-system component.
 ---
 
-# React components
+# UI components
 
 Match the existing request form and dashboard. Reuse the select, badge, and filter components. Map priority to the design-system tones already used for status: neutral, attention, urgent.
 

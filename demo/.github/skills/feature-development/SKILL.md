@@ -12,7 +12,7 @@ Use this skill whenever a feature, bug, or release task arrives. Treat it as the
 Before proposing a change, read the repository end to end.
 
 - Open every route, controller, service, schema, and migration.
-- Open every React page, shared component, stylesheet, and design token.
+- Open every dashboard view, shared component, stylesheet, and design token.
 - Open every test file, fixture, and the CI workflow.
 - Open the README, architecture notes, and any instructions under `.github`.
 - Produce a written architecture summary: modules, data flow, validation, persistence, and UI states.
